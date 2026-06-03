@@ -120,7 +120,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right - Faceted Gem-like Crystal Layers */}
+            {/* Right - Refined Gem-like Layers with Soft Facets */}
             <div className="hidden lg:flex items-center justify-center">
               <svg className="w-full max-w-sm" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -137,44 +137,52 @@ export default function Home() {
                     <stop offset="50%" stopColor="#d946ef" stopOpacity="1" />
                     <stop offset="100%" stopColor="#c084fc" stopOpacity="0.95" />
                   </linearGradient>
-                  <filter id="gemGlow">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+                  <filter id="softGlow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
                   </filter>
                 </defs>
 
-                {/* Top faceted layer - angular with visible edges */}
-                <polygon points="120,100 280,100 300,140 200,160 100,140" fill="url(#layer1)" stroke="#b8956a" strokeWidth="1.2" />
-                {/* Right facet edge */}
-                <polygon points="280,100 300,140 290,115" fill="#6a7b8d" stroke="#94a3b8" strokeWidth="0.8" />
-                {/* Left facet edge */}
-                <polygon points="120,100 100,140 110,115" fill="#6a7b8d" stroke="#94a3b8" strokeWidth="0.8" />
+                {/* Top layer - soft rounded facets */}
+                <path d="M 130 105 Q 110 110 100 135 Q 100 145 110 150 L 290 150 Q 300 145 300 135 Q 290 110 270 105 Q 200 90 130 105 Z"
+                      fill="url(#layer1)" stroke="#b8956a" strokeWidth="1" strokeLinecap="round" />
 
-                {/* Middle faceted layer - larger diamond-like shape */}
-                <polygon points="90,180 310,180 340,260 200,290 60,260" fill="url(#layer2)" stroke="#b8956a" strokeWidth="1.2" />
-                {/* Right side facet */}
-                <polygon points="310,180 340,260 320,200" fill="#7a8b9d" stroke="#94a3b8" strokeWidth="0.8" />
-                {/* Left side facet */}
-                <polygon points="90,180 60,260 80,200" fill="#7a8b9d" stroke="#94a3b8" strokeWidth="0.8" />
+                {/* Subtle left side depth highlight */}
+                <path d="M 130 105 Q 110 110 100 135 L 105 125 Q 115 110 140 100"
+                      fill="none" stroke="#c9b5a0" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
 
-                {/* Bottom faceted layer - bold geometric shape with purple glow */}
-                <g filter="url(#gemGlow)">
-                  <polygon points="50,300 350,300 380,400 200,440 20,400" fill="url(#purpleGradient)" stroke="#e879f9" strokeWidth="1.5" />
+                {/* Middle layer - larger soft rounded shape */}
+                <path d="M 100 175 Q 75 190 70 225 Q 70 250 85 265 L 315 265 Q 330 250 330 225 Q 325 190 300 175 Q 200 155 100 175 Z"
+                      fill="url(#layer2)" stroke="#b8956a" strokeWidth="1" strokeLinecap="round" />
+
+                {/* Subtle side depth highlights */}
+                <path d="M 100 175 Q 75 190 70 225 L 80 210 Q 90 190 110 175"
+                      fill="none" stroke="#d9c5b0" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+                <path d="M 300 175 Q 325 190 330 225 L 320 210 Q 310 190 290 175"
+                      fill="none" stroke="#d9c5b0" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+
+                {/* Bottom layer - large rounded shape with purple glow */}
+                <g filter="url(#softGlow)">
+                  <path d="M 55 295 Q 30 315 25 360 Q 25 395 50 420 L 350 420 Q 375 395 375 360 Q 370 315 345 295 Q 200 270 55 295 Z"
+                        fill="url(#purpleGradient)" stroke="#e879f9" strokeWidth="1.2" strokeLinecap="round" opacity="0.95" />
                 </g>
 
-                {/* Additional facets on bottom layer for gem-like effect */}
-                <g opacity="0.6" filter="url(#gemGlow)">
-                  <polygon points="350,300 380,400 360,320" fill="#e879f9" stroke="#c084fc" strokeWidth="1" />
-                  <polygon points="50,300 20,400 40,320" fill="#e879f9" stroke="#c084fc" strokeWidth="1" />
+                {/* Subtle bottom layer depth highlights */}
+                <g opacity="0.4" filter="url(#softGlow)">
+                  <path d="M 55 295 Q 30 315 25 360 L 40 335 Q 50 315 75 295"
+                        fill="none" stroke="#f0d9f5" strokeWidth="0.8" strokeLinecap="round" />
+                  <path d="M 345 295 Q 370 315 375 360 L 360 335 Q 350 315 325 295"
+                        fill="none" stroke="#f0d9f5" strokeWidth="0.8" strokeLinecap="round" />
                 </g>
 
-                {/* Prominent structural depth lines creating visible edges */}
-                <line x1="120" y1="100" x2="90" y2="180" stroke="#b8956a" strokeWidth="1.5" opacity="0.8" />
-                <line x1="280" y1="100" x2="310" y2="180" stroke="#b8956a" strokeWidth="1.5" opacity="0.8" />
-                <line x1="100" y1="140" x2="60" y2="260" stroke="#d946ef" strokeWidth="1.8" opacity="0.9" />
-                <line x1="300" y1="140" x2="340" y2="260" stroke="#d946ef" strokeWidth="1.8" opacity="0.9" />
-                <line x1="90" y1="180" x2="50" y2="300" stroke="#e879f9" strokeWidth="2" opacity="0.85" filter="url(#gemGlow)" />
-                <line x1="310" y1="180" x2="350" y2="300" stroke="#e879f9" strokeWidth="2" opacity="0.85" filter="url(#gemGlow)" />
-                <line x1="200" y1="160" x2="200" y2="290" stroke="#c084fc" strokeWidth="1.2" opacity="0.7" filter="url(#gemGlow)" />
+                {/* Elegant depth lines connecting layers - soft and subtle */}
+                <line x1="100" y1="150" x2="85" y2="175" stroke="#d946ef" strokeWidth="1.2" opacity="0.5" strokeLinecap="round" />
+                <line x1="300" y1="150" x2="315" y2="175" stroke="#d946ef" strokeWidth="1.2" opacity="0.5" strokeLinecap="round" />
+
+                <line x1="85" y1="265" x2="50" y2="295" stroke="#e879f9" strokeWidth="1.3" opacity="0.6" filter="url(#softGlow)" strokeLinecap="round" />
+                <line x1="315" y1="265" x2="350" y2="295" stroke="#e879f9" strokeWidth="1.3" opacity="0.6" filter="url(#softGlow)" strokeLinecap="round" />
+
+                {/* Subtle center vertical line for dimension */}
+                <line x1="200" y1="150" x2="200" y2="420" stroke="#c084fc" strokeWidth="0.8" opacity="0.4" filter="url(#softGlow)" strokeLinecap="round" />
               </svg>
             </div>
           </div>
