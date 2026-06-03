@@ -1,0 +1,327 @@
+import { useEffect, useState } from 'react';
+import { API_BASE } from '../api';
+import ListingCard from '../components/ListingCard';
+
+export default function Home() {
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [contactLoading, setContactLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/listings`);
+        if (res.ok) {
+          const data = await res.json();
+          setListings(data);
+        }
+      } catch (err) {
+        console.error('Failed to load listings:', err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setContactLoading(true);
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/leads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          message: formData.get('message'),
+        }),
+      });
+
+      if (res.ok) {
+        setContactSubmitted(true);
+        e.target.reset();
+        setTimeout(() => setContactSubmitted(false), 5000);
+      }
+    } catch (err) {
+      console.error('Failed to submit contact form:', err);
+    } finally {
+      setContactLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-white">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-slate-950 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-serif text-amber-100">Angela Slawinski</h1>
+            <p className="text-xs tracking-widest text-slate-400 uppercase">Texas Realtor</p>
+          </div>
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#listings" className="text-amber-100 hover:text-amber-300 transition text-sm font-light">Listings</a>
+            <a href="#about" className="text-amber-100 hover:text-amber-300 transition text-sm font-light">About</a>
+            <a href="#contact" className="text-amber-100 hover:text-amber-300 transition text-sm font-light">Contact</a>
+            <a href="tel:9726327710" className="bg-amber-700 hover:bg-amber-600 text-slate-950 px-6 py-2 rounded font-semibold transition text-sm">
+              972.632.7710
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            <path d="M0,400 Q300,300 600,400 T1200,400" stroke="currentColor" strokeWidth="1" fill="none" />
+            <path d="M0,500 Q300,400 600,500 T1200,500" stroke="currentColor" strokeWidth="1" fill="none" />
+            <path d="M0,300 Q300,200 600,300 T1200,300" stroke="currentColor" strokeWidth="1" fill="none" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div>
+              <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-semibold">DFW Metroplex · Greater Houston</p>
+
+              <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-white">
+                Your Home.
+                <br />
+                Your Story.
+                <br />
+                <span className="text-amber-500">Your Realtor.</span>
+              </h2>
+
+              <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-xl font-light">
+                Angela Slawinski brings compassionate, expert guidance to DFW & Houston families — helping you find not just a house, but a home.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#listings" className="bg-amber-700 hover:bg-amber-600 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                  VIEW LISTINGS
+                </a>
+                <a href="#contact" className="border border-slate-600 hover:border-amber-500 text-amber-100 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                  GET IN TOUCH
+                </a>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800">
+                <div>
+                  <p className="text-3xl font-bold text-amber-500">15+</p>
+                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-amber-500">2</p>
+                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-amber-500">100+</p>
+                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right - 3D Illustration */}
+            <div className="hidden lg:flex items-center justify-center">
+              <svg className="w-full max-w-sm" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="neonPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#a855f7" />
+                    <stop offset="100%" stopColor="#7c3aed" />
+                  </linearGradient>
+                </defs>
+                <polygon points="200,100 320,170 200,240 80,170" fill="none" stroke="#64748b" strokeWidth="2" />
+                <polygon points="80,170 80,340 200,410 200,240" fill="none" stroke="#64748b" strokeWidth="2" />
+                <polygon points="320,170 440,240 440,410 200,410" fill="none" stroke="#64748b" strokeWidth="2" />
+                <polygon points="80,340 200,410 320,340 200,270" fill="url(#neonPurple)" opacity="0.8" />
+                <line x1="80" y1="340" x2="200" y2="410" stroke="#a855f7" strokeWidth="3" opacity="0.6" />
+                <line x1="320" y1="340" x2="200" y2="410" stroke="#a855f7" strokeWidth="3" opacity="0.6" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Listings */}
+      <section id="listings" className="py-32 px-6 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-20">
+            <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">Our Selection</p>
+            <h2 className="font-serif text-5xl text-white mb-6">Featured Properties</h2>
+            <div className="w-12 h-1 bg-gradient-to-r from-amber-500 to-transparent"></div>
+          </div>
+
+          {loading ? (
+            <div className="text-center py-20">
+              <p className="text-slate-400">Loading listings...</p>
+            </div>
+          ) : listings.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-slate-400">No listings available yet.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              {listings.map(listing => (
+                <ListingCard key={listing.id} listing={listing} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-32 px-6 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">About</p>
+            <h2 className="font-serif text-5xl text-white mb-8">Meet Angela</h2>
+            <p className="text-slate-300 text-lg mb-6 leading-relaxed font-light">
+              With 15+ years of experience in real estate, Angela Slawinski has established herself as a trusted advisor to hundreds of families across the DFW and Houston markets. Her approach combines market expertise with genuine care for every client.
+            </p>
+            <p className="text-slate-400 text-lg leading-relaxed font-light">
+              Whether you're buying, selling, or investing, Angela's personalized service and deep knowledge of the market ensure the best outcomes for you and your family.
+            </p>
+            <div className="mt-8 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-amber-500">•</span>
+                <span className="text-slate-300">Licensed Texas Real Estate Agent</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-amber-500">•</span>
+                <span className="text-slate-300">15+ Years Industry Experience</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-amber-500">•</span>
+                <span className="text-slate-300">100+ Properties Successfully Sold</span>
+              </div>
+            </div>
+          </div>
+          <div className="h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 flex items-center justify-center">
+            <p className="text-slate-500 text-center">Agent Portrait</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-32 px-6 bg-slate-900 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">Testimonials</p>
+          <h2 className="font-serif text-5xl text-white mb-20">What Clients Say</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg">
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-amber-500 text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-slate-300 mb-8 leading-relaxed font-light italic">
+                "Angela's expertise and compassion made all the difference. She didn't just sell us a house—she helped us find our home. Couldn't recommend her more highly."
+              </p>
+              <p className="font-semibold text-amber-100">Sarah Martinez</p>
+              <p className="text-sm text-slate-500 mt-1">DFW Homebuyer</p>
+            </div>
+
+            <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg">
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-amber-500 text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-slate-300 mb-8 leading-relaxed font-light italic">
+                "Professional, responsive, and genuinely invested in getting us the best deal. Angela's market knowledge is unmatched. A true pleasure to work with."
+              </p>
+              <p className="font-semibold text-amber-100">James Chen</p>
+              <p className="text-sm text-slate-500 mt-1">Houston Seller</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-32 px-6 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto">
+          <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">Let's Connect</p>
+          <h2 className="font-serif text-5xl text-white mb-6">Get in Touch</h2>
+          <p className="text-slate-400 text-lg mb-12 font-light">
+            Have questions about a property or ready to start your real estate journey? Reach out to Angela today. She's available to discuss your needs and answer any questions you may have.
+          </p>
+
+          {contactSubmitted && (
+            <div className="mb-8 p-4 bg-slate-800 border border-amber-700 rounded text-amber-100 text-sm">
+              ✓ Thank you for reaching out. Angela will be in touch shortly.
+            </div>
+          )}
+
+          <form onSubmit={handleContactSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <label className="block text-sm text-slate-300 mb-3 font-light uppercase tracking-wide">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition font-light"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-300 mb-3 font-light uppercase tracking-wide">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition font-light"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm text-slate-300 mb-3 font-light uppercase tracking-wide">Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition font-light"
+                placeholder="(555) 123-4567"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm text-slate-300 mb-3 font-light uppercase tracking-wide">Message</label>
+              <textarea
+                name="message"
+                rows="5"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition resize-none font-light"
+                placeholder="Tell us about your real estate needs..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              disabled={contactLoading}
+              className="w-full bg-amber-700 hover:bg-amber-600 text-slate-950 font-semibold py-3 rounded transition disabled:opacity-50"
+            >
+              {contactLoading ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-800 py-8 px-6 text-center text-slate-500 text-sm font-light">
+        <p>&copy; 2026 Angela Slawinski. All rights reserved.</p>
+        <p className="mt-4">
+          <a href="/admin/login" className="text-slate-400 hover:text-amber-500 transition">Admin Portal</a>
+        </p>
+      </footer>
+    </div>
+  );
+}
