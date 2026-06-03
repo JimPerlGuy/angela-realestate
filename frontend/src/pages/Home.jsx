@@ -149,38 +149,54 @@ export default function Home() {
                   </filter>
                 </defs>
 
-                {/* Top layer - refined gem form with soft curves */}
-                <path d="M 135 98 Q 165 85 200 84 Q 235 85 265 98 Q 285 108 292 128 Q 288 145 200 152 Q 112 145 108 128 Q 115 108 135 98 Z"
+                {/* Top layer - faceted gem form with soft rounded edges */}
+                <path d="M 140 100 L 260 100 Q 285 105 295 125 Q 290 145 200 155 Q 110 145 105 125 Q 115 105 140 100 Z"
                       fill="url(#layer1)" stroke="#b8956a" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
 
-                {/* Luminous highlight on top surface - subtle light reflection */}
-                <ellipse cx="200" cy="105" rx="50" ry="10" fill="#f0e5db" opacity="0.35" filter="url(#gemLuminosity)" />
+                {/* Subtle facet edge on top - suggests cutting */}
+                <path d="M 140 100 L 200 88 L 260 100"
+                      fill="none" stroke="#c9b5a0" strokeWidth="0.6" opacity="0.6" strokeLinecap="round" />
 
-                {/* Middle layer - larger graceful gem form */}
-                <path d="M 100 170 Q 75 185 68 220 Q 65 250 82 268 Q 140 285 200 288 Q 260 285 318 268 Q 335 250 332 220 Q 325 185 300 170 Q 200 158 100 170 Z"
+                {/* Luminous highlight on top surface */}
+                <ellipse cx="200" cy="108" rx="55" ry="12" fill="#f0e5db" opacity="0.4" filter="url(#gemLuminosity)" />
+
+                {/* Middle layer - geometric base with soft edges */}
+                <path d="M 85 175 L 315 175 Q 340 185 345 220 Q 342 260 320 275 Q 260 295 200 298 Q 140 295 80 275 Q 58 260 55 220 Q 60 185 85 175 Z"
                       fill="url(#layer2)" stroke="#b8956a" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
 
-                {/* Luminous highlight on middle surface */}
-                <ellipse cx="200" cy="190" rx="85" ry="18" fill="#d9cec3" opacity="0.3" filter="url(#gemLuminosity)" />
+                {/* Facet edges suggesting structured cutting */}
+                <path d="M 85 175 L 200 155 L 315 175"
+                      fill="none" stroke="#c9b5a0" strokeWidth="0.6" opacity="0.5" strokeLinecap="round" />
+                <path d="M 80 275 L 200 298 L 320 275"
+                      fill="none" stroke="#8a95a5" strokeWidth="0.6" opacity="0.4" strokeLinecap="round" />
 
-                {/* Bottom layer - luxurious gem with rich purple depth */}
+                {/* Luminous highlight on middle */}
+                <ellipse cx="200" cy="205" rx="95" ry="22" fill="#d9cec3" opacity="0.35" filter="url(#gemLuminosity)" />
+
+                {/* Bottom layer - structured gem form with presence */}
                 <g filter="url(#softGlow)">
-                  <path d="M 52 292 Q 28 310 20 355 Q 18 395 48 425 Q 120 460 200 468 Q 280 460 352 425 Q 382 395 380 355 Q 372 310 348 292 Q 200 268 52 292 Z"
+                  <path d="M 45 300 L 355 300 Q 385 315 388 360 Q 385 405 350 435 Q 275 475 200 483 Q 125 475 50 435 Q 15 405 12 360 Q 15 315 45 300 Z"
                         fill="url(#purpleGradient)" stroke="#d9a4ec" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                 </g>
 
-                {/* Luminous highlight on bottom gem - precious quality */}
-                <ellipse cx="200" cy="320" rx="110" ry="28" fill="#f5e6f9" opacity="0.28" filter="url(#gemLuminosity)" />
+                {/* Facet edges on bottom layer - defines precious form */}
+                <path d="M 45 300 L 200 270 L 355 300"
+                      fill="none" stroke="#e879f9" strokeWidth="0.7" opacity="0.35" filter="url(#softGlow)" strokeLinecap="round" />
+                <path d="M 50 435 L 200 483 L 350 435"
+                      fill="none" stroke="#c084fc" strokeWidth="0.7" opacity="0.3" filter="url(#softGlow)" strokeLinecap="round" />
 
-                {/* Elegant curved depth lines between layers - soft and refined */}
-                <path d="M 108 152 Q 95 160 82 170" stroke="#b8956a" strokeWidth="0.7" opacity="0.35" fill="none" strokeLinecap="round" />
-                <path d="M 292 152 Q 305 160 318 170" stroke="#b8956a" strokeWidth="0.7" opacity="0.35" fill="none" strokeLinecap="round" />
+                {/* Luminous highlight on bottom gem */}
+                <ellipse cx="200" cy="330" rx="120" ry="32" fill="#f5e6f9" opacity="0.32" filter="url(#gemLuminosity)" />
 
-                <path d="M 78 268 Q 65 280 50 292" stroke="#d9a4ec" strokeWidth="0.8" opacity="0.4" fill="none" filter="url(#softGlow)" strokeLinecap="round" />
-                <path d="M 322 268 Q 335 280 350 292" stroke="#d9a4ec" strokeWidth="0.8" opacity="0.4" fill="none" filter="url(#softGlow)" strokeLinecap="round" />
+                {/* Structural depth lines - show intentional cutting */}
+                <line x1="105" y1="125" x2="80" y2="175" stroke="#b8956a" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+                <line x1="295" y1="125" x2="320" y2="175" stroke="#b8956a" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
 
-                {/* Subtle center vertical line for dimension */}
-                <line x1="200" y1="150" x2="200" y2="420" stroke="#c084fc" strokeWidth="0.8" opacity="0.4" filter="url(#softGlow)" strokeLinecap="round" />
+                <line x1="80" y1="275" x2="50" y2="300" stroke="#d9a4ec" strokeWidth="0.9" opacity="0.45" filter="url(#softGlow)" strokeLinecap="round" />
+                <line x1="320" y1="275" x2="350" y2="300" stroke="#d9a4ec" strokeWidth="0.9" opacity="0.45" filter="url(#softGlow)" strokeLinecap="round" />
+
+                {/* Center axis for definition */}
+                <line x1="200" y1="155" x2="200" y2="483" stroke="#c084fc" strokeWidth="0.7" opacity="0.35" filter="url(#softGlow)" strokeLinecap="round" />
               </svg>
             </div>
           </div>
