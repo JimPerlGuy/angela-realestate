@@ -26,10 +26,10 @@ export default function ListingCard({ listing }) {
 
         {/* Info */}
         <div className="p-6 flex-1 flex flex-col">
-          <h3 className="text-lg font-serif text-amber-100 mb-3 group-hover:text-amber-300 transition line-clamp-2">
+          <h3 className="text-lg font-serif text-amber-100 mb-3 group-hover:text-amber-600 transition line-clamp-2 font-light">
             {listing.address}
           </h3>
-          <p className="text-3xl font-bold text-amber-500 mb-6">
+          <p className="text-3xl font-bold text-amber-600 mb-6">
             ${listing.price?.toLocaleString()}
           </p>
 
@@ -49,7 +49,7 @@ export default function ListingCard({ listing }) {
           </div>
 
           <div className="mt-6 pt-6 border-t border-slate-700">
-            <span className="text-amber-400 font-light text-sm group-hover:text-amber-300 transition">
+            <span className="text-amber-300 font-light text-sm group-hover:text-amber-600 transition">
               Explore Property →
             </span>
           </div>

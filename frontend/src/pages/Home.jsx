@@ -54,19 +54,19 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-slate-950 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-serif text-amber-100">Angela Slawinski</h1>
-            <p className="text-xs tracking-widest text-slate-400 uppercase">Texas Realtor</p>
+            <p className="text-xs tracking-widest text-slate-400 uppercase font-light">Texas Realtor</p>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#listings" className="text-amber-100 hover:text-amber-300 transition text-sm font-light">Listings</a>
-            <a href="#about" className="text-amber-100 hover:text-amber-300 transition text-sm font-light">About</a>
-            <a href="#contact" className="text-amber-100 hover:text-amber-300 transition text-sm font-light">Contact</a>
-            <a href="tel:9726327710" className="bg-amber-700 hover:bg-amber-600 text-slate-950 px-6 py-2 rounded font-semibold transition text-sm">
+            <a href="#listings" className="text-amber-100 hover:text-amber-700 transition text-sm font-light">Listings</a>
+            <a href="#about" className="text-amber-100 hover:text-amber-700 transition text-sm font-light">About</a>
+            <a href="#contact" className="text-amber-100 hover:text-amber-700 transition text-sm font-light">Contact</a>
+            <a href="tel:9726327710" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-6 py-2 rounded font-semibold transition text-sm">
               972.632.7710
             </a>
           </div>
@@ -75,27 +75,19 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-            <path d="M0,400 Q300,300 600,400 T1200,400" stroke="currentColor" strokeWidth="1" fill="none" />
-            <path d="M0,500 Q300,400 600,500 T1200,500" stroke="currentColor" strokeWidth="1" fill="none" />
-            <path d="M0,300 Q300,200 600,300 T1200,300" stroke="currentColor" strokeWidth="1" fill="none" />
-          </svg>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div>
-              <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-semibold">DFW Metroplex · Greater Houston</p>
+              <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-light">DFW Metroplex · Greater Houston</p>
 
-              <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-white">
+              <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-slate-50">
                 Your Home.
                 <br />
                 Your Story.
                 <br />
-                <span className="text-amber-500">Your Realtor.</span>
+                <span style={{ color: '#b8956a' }}>Your Realtor.</span>
               </h2>
 
               <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-xl font-light">
@@ -103,10 +95,10 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="#listings" className="bg-amber-700 hover:bg-amber-600 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                <a href="#listings" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
                   VIEW LISTINGS
                 </a>
-                <a href="#contact" className="border border-slate-600 hover:border-amber-500 text-amber-100 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                <a href="#contact" style={{ borderColor: '#b8956a', color: '#b8956a' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
                   GET IN TOUCH
                 </a>
               </div>
@@ -114,35 +106,75 @@ export default function Home() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800">
                 <div>
-                  <p className="text-3xl font-bold text-amber-500">15+</p>
+                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>15+</p>
                   <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-amber-500">2</p>
+                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>2</p>
                   <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-amber-500">100+</p>
+                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>100+</p>
                   <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
                 </div>
               </div>
             </div>
 
-            {/* Right - 3D Illustration */}
+            {/* Right - Faceted Gem-like Crystal Layers */}
             <div className="hidden lg:flex items-center justify-center">
               <svg className="w-full max-w-sm" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  <linearGradient id="neonPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#a855f7" />
-                    <stop offset="100%" stopColor="#7c3aed" />
+                  <linearGradient id="layer1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#8a95a5" stopOpacity="0.85" />
+                    <stop offset="100%" stopColor="#5a6b7d" stopOpacity="0.85" />
                   </linearGradient>
+                  <linearGradient id="layer2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#9aa5b3" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#6a7b8d" stopOpacity="0.9" />
+                  </linearGradient>
+                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#e879f9" stopOpacity="0.95" />
+                    <stop offset="50%" stopColor="#d946ef" stopOpacity="1" />
+                    <stop offset="100%" stopColor="#c084fc" stopOpacity="0.95" />
+                  </linearGradient>
+                  <filter id="gemGlow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+                  </filter>
                 </defs>
-                <polygon points="200,100 320,170 200,240 80,170" fill="none" stroke="#64748b" strokeWidth="2" />
-                <polygon points="80,170 80,340 200,410 200,240" fill="none" stroke="#64748b" strokeWidth="2" />
-                <polygon points="320,170 440,240 440,410 200,410" fill="none" stroke="#64748b" strokeWidth="2" />
-                <polygon points="80,340 200,410 320,340 200,270" fill="url(#neonPurple)" opacity="0.8" />
-                <line x1="80" y1="340" x2="200" y2="410" stroke="#a855f7" strokeWidth="3" opacity="0.6" />
-                <line x1="320" y1="340" x2="200" y2="410" stroke="#a855f7" strokeWidth="3" opacity="0.6" />
+
+                {/* Top faceted layer - angular with visible edges */}
+                <polygon points="120,100 280,100 300,140 200,160 100,140" fill="url(#layer1)" stroke="#b8956a" strokeWidth="1.2" />
+                {/* Right facet edge */}
+                <polygon points="280,100 300,140 290,115" fill="#6a7b8d" stroke="#94a3b8" strokeWidth="0.8" />
+                {/* Left facet edge */}
+                <polygon points="120,100 100,140 110,115" fill="#6a7b8d" stroke="#94a3b8" strokeWidth="0.8" />
+
+                {/* Middle faceted layer - larger diamond-like shape */}
+                <polygon points="90,180 310,180 340,260 200,290 60,260" fill="url(#layer2)" stroke="#b8956a" strokeWidth="1.2" />
+                {/* Right side facet */}
+                <polygon points="310,180 340,260 320,200" fill="#7a8b9d" stroke="#94a3b8" strokeWidth="0.8" />
+                {/* Left side facet */}
+                <polygon points="90,180 60,260 80,200" fill="#7a8b9d" stroke="#94a3b8" strokeWidth="0.8" />
+
+                {/* Bottom faceted layer - bold geometric shape with purple glow */}
+                <g filter="url(#gemGlow)">
+                  <polygon points="50,300 350,300 380,400 200,440 20,400" fill="url(#purpleGradient)" stroke="#e879f9" strokeWidth="1.5" />
+                </g>
+
+                {/* Additional facets on bottom layer for gem-like effect */}
+                <g opacity="0.6" filter="url(#gemGlow)">
+                  <polygon points="350,300 380,400 360,320" fill="#e879f9" stroke="#c084fc" strokeWidth="1" />
+                  <polygon points="50,300 20,400 40,320" fill="#e879f9" stroke="#c084fc" strokeWidth="1" />
+                </g>
+
+                {/* Prominent structural depth lines creating visible edges */}
+                <line x1="120" y1="100" x2="90" y2="180" stroke="#b8956a" strokeWidth="1.5" opacity="0.8" />
+                <line x1="280" y1="100" x2="310" y2="180" stroke="#b8956a" strokeWidth="1.5" opacity="0.8" />
+                <line x1="100" y1="140" x2="60" y2="260" stroke="#d946ef" strokeWidth="1.8" opacity="0.9" />
+                <line x1="300" y1="140" x2="340" y2="260" stroke="#d946ef" strokeWidth="1.8" opacity="0.9" />
+                <line x1="90" y1="180" x2="50" y2="300" stroke="#e879f9" strokeWidth="2" opacity="0.85" filter="url(#gemGlow)" />
+                <line x1="310" y1="180" x2="350" y2="300" stroke="#e879f9" strokeWidth="2" opacity="0.85" filter="url(#gemGlow)" />
+                <line x1="200" y1="160" x2="200" y2="290" stroke="#c084fc" strokeWidth="1.2" opacity="0.7" filter="url(#gemGlow)" />
               </svg>
             </div>
           </div>
@@ -153,8 +185,8 @@ export default function Home() {
       <section id="listings" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
-            <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">Our Selection</p>
-            <h2 className="font-serif text-5xl text-white mb-6">Featured Properties</h2>
+            <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Our Selection</p>
+            <h2 className="font-serif text-5xl text-slate-50 mb-6">Featured Properties</h2>
             <div className="w-12 h-1 bg-gradient-to-r from-amber-500 to-transparent"></div>
           </div>
 
@@ -180,8 +212,8 @@ export default function Home() {
       <section id="about" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">About</p>
-            <h2 className="font-serif text-5xl text-white mb-8">Meet Angela</h2>
+            <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">About</p>
+            <h2 className="font-serif text-5xl text-slate-50 mb-8">Meet Angela</h2>
             <p className="text-slate-300 text-lg mb-6 leading-relaxed font-light">
               With 15+ years of experience in real estate, Angela Slawinski has established herself as a trusted advisor to hundreds of families across the DFW and Houston markets. Her approach combines market expertise with genuine care for every client.
             </p>
@@ -190,21 +222,21 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <span className="text-amber-500">•</span>
-                <span className="text-slate-300">Licensed Texas Real Estate Agent</span>
+                <span className="text-amber-700">•</span>
+                <span className="text-slate-300 font-light">Licensed Texas Real Estate Agent</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-amber-500">•</span>
-                <span className="text-slate-300">15+ Years Industry Experience</span>
+                <span className="text-amber-700">•</span>
+                <span className="text-slate-300 font-light">15+ Years Industry Experience</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-amber-500">•</span>
-                <span className="text-slate-300">100+ Properties Successfully Sold</span>
+                <span className="text-amber-700">•</span>
+                <span className="text-slate-300 font-light">100+ Properties Successfully Sold</span>
               </div>
             </div>
           </div>
           <div className="h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 flex items-center justify-center">
-            <p className="text-slate-500 text-center">Agent Portrait</p>
+            <p className="text-slate-500 text-center font-light">Agent Portrait</p>
           </div>
         </div>
       </section>
@@ -212,34 +244,34 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-32 px-6 bg-slate-900 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">Testimonials</p>
-          <h2 className="font-serif text-5xl text-white mb-20">What Clients Say</h2>
+          <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Testimonials</p>
+          <h2 className="font-serif text-5xl text-slate-50 mb-20">What Clients Say</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg">
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-amber-500 text-lg">★</span>
+                  <span key={i} className="text-amber-700 text-lg">★</span>
                 ))}
               </div>
               <p className="text-slate-300 mb-8 leading-relaxed font-light italic">
                 "Angela's expertise and compassion made all the difference. She didn't just sell us a house—she helped us find our home. Couldn't recommend her more highly."
               </p>
-              <p className="font-semibold text-amber-100">Sarah Martinez</p>
-              <p className="text-sm text-slate-500 mt-1">DFW Homebuyer</p>
+              <p className="font-semibold text-slate-100">Sarah Martinez</p>
+              <p className="text-sm text-slate-500 mt-1 font-light">DFW Homebuyer</p>
             </div>
 
             <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg">
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-amber-500 text-lg">★</span>
+                  <span key={i} className="text-amber-700 text-lg">★</span>
                 ))}
               </div>
               <p className="text-slate-300 mb-8 leading-relaxed font-light italic">
                 "Professional, responsive, and genuinely invested in getting us the best deal. Angela's market knowledge is unmatched. A true pleasure to work with."
               </p>
-              <p className="font-semibold text-amber-100">James Chen</p>
-              <p className="text-sm text-slate-500 mt-1">Houston Seller</p>
+              <p className="font-semibold text-slate-100">James Chen</p>
+              <p className="text-sm text-slate-500 mt-1 font-light">Houston Seller</p>
             </div>
           </div>
         </div>
@@ -248,14 +280,14 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-3xl mx-auto">
-          <p className="text-amber-700 text-xs tracking-widest uppercase font-semibold mb-4">Let's Connect</p>
-          <h2 className="font-serif text-5xl text-white mb-6">Get in Touch</h2>
+          <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Let's Connect</p>
+          <h2 className="font-serif text-5xl text-slate-50 mb-6">Get in Touch</h2>
           <p className="text-slate-400 text-lg mb-12 font-light">
             Have questions about a property or ready to start your real estate journey? Reach out to Angela today. She's available to discuss your needs and answer any questions you may have.
           </p>
 
           {contactSubmitted && (
-            <div className="mb-8 p-4 bg-slate-800 border border-amber-700 rounded text-amber-100 text-sm">
+            <div className="mb-8 p-4 bg-slate-800 border border-yellow-700 rounded text-amber-50 text-sm font-light">
               ✓ Thank you for reaching out. Angela will be in touch shortly.
             </div>
           )}
@@ -268,7 +300,7 @@ export default function Home() {
                   type="text"
                   name="name"
                   required
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition font-light"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-slate-100 placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition font-light"
                   placeholder="Your name"
                 />
               </div>
@@ -278,7 +310,7 @@ export default function Home() {
                   type="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition font-light"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-slate-100 placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition font-light"
                   placeholder="your@email.com"
                 />
               </div>
@@ -289,7 +321,7 @@ export default function Home() {
               <input
                 type="tel"
                 name="phone"
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition font-light"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-slate-100 placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition font-light"
                 placeholder="(555) 123-4567"
               />
             </div>
@@ -299,7 +331,7 @@ export default function Home() {
               <textarea
                 name="message"
                 rows="5"
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition resize-none font-light"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded text-slate-100 placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition resize-none font-light"
                 placeholder="Tell us about your real estate needs..."
               ></textarea>
             </div>
@@ -307,7 +339,8 @@ export default function Home() {
             <button
               type="submit"
               disabled={contactLoading}
-              className="w-full bg-amber-700 hover:bg-amber-600 text-slate-950 font-semibold py-3 rounded transition disabled:opacity-50"
+              style={{ backgroundColor: '#b8956a' }}
+              className="w-full hover:opacity-80 text-slate-950 font-semibold py-3 rounded transition disabled:opacity-50"
             >
               {contactLoading ? 'Sending...' : 'Send Message'}
             </button>
@@ -319,7 +352,7 @@ export default function Home() {
       <footer className="border-t border-slate-800 py-8 px-6 text-center text-slate-500 text-sm font-light">
         <p>&copy; 2026 Angela Slawinski. All rights reserved.</p>
         <p className="mt-4">
-          <a href="/admin/login" className="text-slate-400 hover:text-amber-500 transition">Admin Portal</a>
+          <a href="/admin/login" className="text-slate-400 hover:text-amber-700 transition">Admin Portal</a>
         </p>
       </footer>
     </div>
