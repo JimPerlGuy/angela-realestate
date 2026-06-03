@@ -124,62 +124,60 @@ export default function Home() {
             <div className="hidden lg:flex items-center justify-center">
               <svg className="w-full max-w-sm" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  <linearGradient id="layer1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#8a95a5" stopOpacity="0.85" />
-                    <stop offset="100%" stopColor="#5a6b7d" stopOpacity="0.85" />
-                  </linearGradient>
-                  <linearGradient id="layer2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#9aa5b3" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="#6a7b8d" stopOpacity="0.9" />
-                  </linearGradient>
-                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#e879f9" stopOpacity="0.95" />
-                    <stop offset="50%" stopColor="#d946ef" stopOpacity="1" />
-                    <stop offset="100%" stopColor="#c084fc" stopOpacity="0.95" />
+                  {/* Radial gradients for gem-like light play */}
+                  <radialGradient id="layer1" cx="50%" cy="30%">
+                    <stop offset="0%" stopColor="#d9cec3" stopOpacity="0.4" />
+                    <stop offset="50%" stopColor="#8a95a5" stopOpacity="0.88" />
+                    <stop offset="100%" stopColor="#6a7b8d" stopOpacity="0.82" />
+                  </radialGradient>
+                  <radialGradient id="layer2" cx="50%" cy="35%">
+                    <stop offset="0%" stopColor="#d4c5b9" stopOpacity="0.35" />
+                    <stop offset="50%" stopColor="#9aa5b3" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#6a7b8d" stopOpacity="0.82" />
+                  </radialGradient>
+                  <linearGradient id="purpleGradient" x1="20%" y1="20%" x2="80%" y2="80%">
+                    <stop offset="0%" stopColor="#f0d9f5" stopOpacity="0.5" />
+                    <stop offset="35%" stopColor="#e5a8f4" stopOpacity="0.75" />
+                    <stop offset="65%" stopColor="#d946ef" stopOpacity="0.88" />
+                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.72" />
                   </linearGradient>
                   <filter id="softGlow">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" />
+                  </filter>
+                  <filter id="gemLuminosity">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" />
                   </filter>
                 </defs>
 
-                {/* Top layer - soft rounded facets */}
-                <path d="M 130 105 Q 110 110 100 135 Q 100 145 110 150 L 290 150 Q 300 145 300 135 Q 290 110 270 105 Q 200 90 130 105 Z"
-                      fill="url(#layer1)" stroke="#b8956a" strokeWidth="1" strokeLinecap="round" />
+                {/* Top layer - refined gem form with soft curves */}
+                <path d="M 135 98 Q 165 85 200 84 Q 235 85 265 98 Q 285 108 292 128 Q 288 145 200 152 Q 112 145 108 128 Q 115 108 135 98 Z"
+                      fill="url(#layer1)" stroke="#b8956a" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
 
-                {/* Subtle left side depth highlight */}
-                <path d="M 130 105 Q 110 110 100 135 L 105 125 Q 115 110 140 100"
-                      fill="none" stroke="#c9b5a0" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+                {/* Luminous highlight on top surface - subtle light reflection */}
+                <ellipse cx="200" cy="105" rx="50" ry="10" fill="#f0e5db" opacity="0.35" filter="url(#gemLuminosity)" />
 
-                {/* Middle layer - larger soft rounded shape */}
-                <path d="M 100 175 Q 75 190 70 225 Q 70 250 85 265 L 315 265 Q 330 250 330 225 Q 325 190 300 175 Q 200 155 100 175 Z"
-                      fill="url(#layer2)" stroke="#b8956a" strokeWidth="1" strokeLinecap="round" />
+                {/* Middle layer - larger graceful gem form */}
+                <path d="M 100 170 Q 75 185 68 220 Q 65 250 82 268 Q 140 285 200 288 Q 260 285 318 268 Q 335 250 332 220 Q 325 185 300 170 Q 200 158 100 170 Z"
+                      fill="url(#layer2)" stroke="#b8956a" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
 
-                {/* Subtle side depth highlights */}
-                <path d="M 100 175 Q 75 190 70 225 L 80 210 Q 90 190 110 175"
-                      fill="none" stroke="#d9c5b0" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
-                <path d="M 300 175 Q 325 190 330 225 L 320 210 Q 310 190 290 175"
-                      fill="none" stroke="#d9c5b0" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+                {/* Luminous highlight on middle surface */}
+                <ellipse cx="200" cy="190" rx="85" ry="18" fill="#d9cec3" opacity="0.3" filter="url(#gemLuminosity)" />
 
-                {/* Bottom layer - large rounded shape with purple glow */}
+                {/* Bottom layer - luxurious gem with rich purple depth */}
                 <g filter="url(#softGlow)">
-                  <path d="M 55 295 Q 30 315 25 360 Q 25 395 50 420 L 350 420 Q 375 395 375 360 Q 370 315 345 295 Q 200 270 55 295 Z"
-                        fill="url(#purpleGradient)" stroke="#e879f9" strokeWidth="1.2" strokeLinecap="round" opacity="0.95" />
+                  <path d="M 52 292 Q 28 310 20 355 Q 18 395 48 425 Q 120 460 200 468 Q 280 460 352 425 Q 382 395 380 355 Q 372 310 348 292 Q 200 268 52 292 Z"
+                        fill="url(#purpleGradient)" stroke="#d9a4ec" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                 </g>
 
-                {/* Subtle bottom layer depth highlights */}
-                <g opacity="0.4" filter="url(#softGlow)">
-                  <path d="M 55 295 Q 30 315 25 360 L 40 335 Q 50 315 75 295"
-                        fill="none" stroke="#f0d9f5" strokeWidth="0.8" strokeLinecap="round" />
-                  <path d="M 345 295 Q 370 315 375 360 L 360 335 Q 350 315 325 295"
-                        fill="none" stroke="#f0d9f5" strokeWidth="0.8" strokeLinecap="round" />
-                </g>
+                {/* Luminous highlight on bottom gem - precious quality */}
+                <ellipse cx="200" cy="320" rx="110" ry="28" fill="#f5e6f9" opacity="0.28" filter="url(#gemLuminosity)" />
 
-                {/* Elegant depth lines connecting layers - soft and subtle */}
-                <line x1="100" y1="150" x2="85" y2="175" stroke="#d946ef" strokeWidth="1.2" opacity="0.5" strokeLinecap="round" />
-                <line x1="300" y1="150" x2="315" y2="175" stroke="#d946ef" strokeWidth="1.2" opacity="0.5" strokeLinecap="round" />
+                {/* Elegant curved depth lines between layers - soft and refined */}
+                <path d="M 108 152 Q 95 160 82 170" stroke="#b8956a" strokeWidth="0.7" opacity="0.35" fill="none" strokeLinecap="round" />
+                <path d="M 292 152 Q 305 160 318 170" stroke="#b8956a" strokeWidth="0.7" opacity="0.35" fill="none" strokeLinecap="round" />
 
-                <line x1="85" y1="265" x2="50" y2="295" stroke="#e879f9" strokeWidth="1.3" opacity="0.6" filter="url(#softGlow)" strokeLinecap="round" />
-                <line x1="315" y1="265" x2="350" y2="295" stroke="#e879f9" strokeWidth="1.3" opacity="0.6" filter="url(#softGlow)" strokeLinecap="round" />
+                <path d="M 78 268 Q 65 280 50 292" stroke="#d9a4ec" strokeWidth="0.8" opacity="0.4" fill="none" filter="url(#softGlow)" strokeLinecap="round" />
+                <path d="M 322 268 Q 335 280 350 292" stroke="#d9a4ec" strokeWidth="0.8" opacity="0.4" fill="none" filter="url(#softGlow)" strokeLinecap="round" />
 
                 {/* Subtle center vertical line for dimension */}
                 <line x1="200" y1="150" x2="200" y2="420" stroke="#c084fc" strokeWidth="0.8" opacity="0.4" filter="url(#softGlow)" strokeLinecap="round" />
