@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { API_BASE } from '../api';
 import ListingCard from '../components/ListingCard';
 
@@ -9,6 +9,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [contactLoading, setContactLoading] = useState(false);
+  const testimonialsRef = useRef(null);
+  const marketUpdatesRef = useRef(null);
 
   useEffect(() => {
     (async () => {
@@ -65,6 +67,16 @@ export default function Home() {
       console.error('Failed to submit contact form:', err);
     } finally {
       setContactLoading(false);
+    }
+  };
+
+  const scroll = (ref, direction) => {
+    if (ref.current) {
+      const cardWidth = ref.current.offsetWidth / 3 + 32; // 3 cards + gap
+      ref.current.scrollBy({
+        left: direction === 'left' ? -cardWidth : cardWidth,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -202,13 +214,46 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-32 px-6 bg-slate-900 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Testimonials</p>
-          <h2 className="font-serif text-5xl text-slate-50 mb-20">What Clients Say</h2>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Testimonials</p>
+              <h2 className="font-serif text-5xl text-slate-50">What Clients Say</h2>
+            </div>
+            {testimonials.length > 3 && (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => scroll(testimonialsRef, 'left')}
+                  className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
+                  aria-label="Previous testimonials"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scroll(testimonialsRef, 'right')}
+                  className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
+                  aria-label="Next testimonials"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {testimonials.length > 0 ? (
-              testimonials.map(testimonial => (
-                <div key={testimonial.id} className="bg-slate-800 border border-slate-700 p-8 rounded-lg">
+          {testimonials.length > 0 ? (
+            <div
+              ref={testimonialsRef}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth"
+              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+            >
+              {testimonials.map(testimonial => (
+                <div
+                  key={testimonial.id}
+                  className="flex-shrink-0 w-full md:w-1/3 bg-slate-800 border border-slate-700 p-8 rounded-lg snap-center"
+                >
                   <div className="flex gap-1 mb-6">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <span key={i} className="text-amber-700 text-lg">★</span>
@@ -222,26 +267,59 @@ export default function Home() {
                     <p className="text-sm text-slate-500 mt-1 font-light">{testimonial.contactType}</p>
                   )}
                 </div>
-              ))
-            ) : (
-              <div className="col-span-2 text-center py-12">
-                <p className="text-slate-400">No testimonials yet.</p>
-              </div>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-slate-400">No testimonials yet.</p>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Market Updates Section */}
       <section className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Stay Informed</p>
-          <h2 className="font-serif text-5xl text-slate-50 mb-20">Market Updates</h2>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Stay Informed</p>
+              <h2 className="font-serif text-5xl text-slate-50">Market Updates</h2>
+            </div>
+            {marketUpdates.length > 3 && (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => scroll(marketUpdatesRef, 'left')}
+                  className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
+                  aria-label="Previous updates"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scroll(marketUpdatesRef, 'right')}
+                  className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
+                  aria-label="Next updates"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {marketUpdates.length > 0 ? (
-              marketUpdates.slice(0, 3).map(update => (
-                <div key={update.id} className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
+          {marketUpdates.length > 0 ? (
+            <div
+              ref={marketUpdatesRef}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth"
+              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+            >
+              {marketUpdates.map(update => (
+                <div
+                  key={update.id}
+                  className="flex-shrink-0 w-full md:w-1/3 bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition snap-center"
+                >
                   <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>
                     {update.sourceName}{update.date ? ` · ${new Date(update.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}` : ''}
                   </p>
@@ -257,13 +335,13 @@ export default function Home() {
                     </a>
                   )}
                 </div>
-              ))
-            ) : (
-              <div className="col-span-3 text-center py-12">
-                <p className="text-slate-400">No market updates available yet.</p>
-              </div>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-slate-400">No market updates available yet.</p>
+            </div>
+          )}
         </div>
       </section>
 
