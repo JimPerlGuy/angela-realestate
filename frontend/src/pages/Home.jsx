@@ -76,7 +76,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden" style={{
         backgroundColor: '#111c33',
-        backgroundImage: 'url(/hero-illustration.jpg)',
+        backgroundImage: 'url(/hero-illustration.png)',
         backgroundPosition: 'center',
         backgroundSize: 'auto 80%',
         backgroundRepeat: 'no-repeat',
@@ -131,7 +131,7 @@ export default function Home() {
             {/* Right - Illustration */}
             <div className="hidden lg:flex items-center justify-center">
               <div className="border border-slate-600 rounded-lg p-4" style={{ backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
-                <img src="/hero-illustration.jpg" alt="Premium real estate services" className="w-full max-w-sm" style={{ mixBlendMode: 'lighten', display: 'block' }} />
+                <img src="/hero-illustration.png" alt="Premium real estate services" className="w-full max-w-sm" style={{ display: 'block' }} />
               </div>
             </div>
           </div>
