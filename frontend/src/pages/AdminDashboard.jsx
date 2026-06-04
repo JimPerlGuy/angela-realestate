@@ -231,6 +231,7 @@ function ListingsView({ listings, loading, fetchError, deleteTarget, deleting, d
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Price</th>
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 hidden sm:table-cell">Beds / Baths</th>
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 hidden md:table-cell">Sqft</th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Status</th>
               <th className="relative px-6 py-3"><span className="sr-only">Actions</span></th>
             </tr>
           </thead>
@@ -238,7 +239,7 @@ function ListingsView({ listings, loading, fetchError, deleteTarget, deleting, d
             {listings.map(listing =>
               deleteTarget === listing.id ? (
                 <tr key={listing.id} className="bg-red-50">
-                  <td colSpan={5} className="px-6 py-4">
+                  <td colSpan={6} className="px-6 py-4">
                     <div className="flex items-center justify-between flex-wrap gap-3">
                       <p className="text-sm text-red-700 font-medium">
                         Delete &ldquo;{listing.address}&rdquo;? This cannot be undone.
@@ -268,6 +269,16 @@ function ListingsView({ listings, loading, fetchError, deleteTarget, deleting, d
                   <td className="px-6 py-4 text-sm text-gray-700 whitespace-nowrap">${listing.price?.toLocaleString()}</td>
                   <td className="px-6 py-4 text-sm text-gray-700 hidden sm:table-cell">{listing.bedrooms}bd / {listing.bathrooms}ba</td>
                   <td className="px-6 py-4 text-sm text-gray-700 hidden md:table-cell">{listing.sqft?.toLocaleString()} sqft</td>
+                  <td className="px-6 py-4 text-sm whitespace-nowrap">
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                      listing.status === 'published' ? 'bg-green-100 text-green-800' :
+                      listing.status === 'draft' ? 'bg-yellow-100 text-yellow-800' :
+                      listing.status === 'archived' ? 'bg-gray-100 text-gray-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {listing.status?.charAt(0).toUpperCase() + listing.status?.slice(1) || 'Unknown'}
+                    </span>
+                  </td>
                   <td className="px-6 py-4 text-right whitespace-nowrap">
                     <div className="flex items-center justify-end gap-2">
                       <button

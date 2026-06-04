@@ -30,7 +30,7 @@ export default function ListingCard({ listing }) {
             {listing.address}
           </h3>
           <p className="text-3xl font-bold text-amber-600 mb-6">
-            ${listing.price?.toLocaleString()}
+            ${Number(listing.price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
           </p>
 
           <div className="flex gap-6 text-center mt-auto pt-6 border-t border-slate-700">
