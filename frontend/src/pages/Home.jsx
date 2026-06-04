@@ -66,7 +66,7 @@ export default function Home() {
             <a href="#listings" className="text-amber-100 hover:text-amber-700 transition text-sm font-light">Listings</a>
             <a href="#about" className="text-amber-100 hover:text-amber-700 transition text-sm font-light">About</a>
             <a href="#contact" className="text-amber-100 hover:text-amber-700 transition text-sm font-light">Contact</a>
-            <a href="tel:9726327710" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-6 py-2 rounded font-semibold transition text-sm">
+            <a href="tel:9726327710" style={{ backgroundColor: '#c9a96e' }} className="hover:opacity-80 text-slate-950 px-6 py-2 rounded font-semibold transition text-sm">
               972.632.7710
             </a>
           </div>
@@ -87,7 +87,7 @@ export default function Home() {
                 <br />
                 Your Story.
                 <br />
-                <span style={{ color: '#b8956a' }}>Your Realtor.</span>
+                <span style={{ color: '#c9a96e' }}>Your Realtor.</span>
               </h2>
 
               <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-xl font-light">
@@ -95,10 +95,10 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="#listings" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                <a href="#listings" style={{ backgroundColor: '#c9a96e' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
                   VIEW LISTINGS
                 </a>
-                <a href="#contact" style={{ borderColor: '#b8956a', color: '#b8956a' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                <a href="#contact" style={{ borderColor: '#c9a96e', color: '#c9a96e' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
                   GET IN TOUCH
                 </a>
               </div>
@@ -106,15 +106,15 @@ export default function Home() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800">
                 <div>
-                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>15+</p>
+                  <p className="text-3xl font-bold" style={{ color: '#c9a96e' }}>15+</p>
                   <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>2</p>
+                  <p className="text-3xl font-bold" style={{ color: '#c9a96e' }}>2</p>
                   <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>100+</p>
+                  <p className="text-3xl font-bold" style={{ color: '#c9a96e' }}>100+</p>
                   <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function Home() {
               <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                 Interest rates have dropped to their lowest level this year — creating a meaningful window for buyers who've been waiting on the sidelines.
               </p>
-              <a href="#" style={{ color: '#b8956a' }} className="text-sm font-semibold hover:opacity-80 transition">
+              <a href="#" style={{ color: '#c9a96e' }} className="text-sm font-semibold hover:opacity-80 transition">
                 Read Article →
               </a>
             </div>
@@ -248,7 +248,7 @@ export default function Home() {
               <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                 CNBC breaks down the latest housing market trends and what falling rates mean for buyers and sellers in markets like DFW and Houston.
               </p>
-              <a href="#" style={{ color: '#b8956a' }} className="text-sm font-semibold hover:opacity-80 transition">
+              <a href="#" style={{ color: '#c9a96e' }} className="text-sm font-semibold hover:opacity-80 transition">
                 Watch Video →
               </a>
             </div>
@@ -259,7 +259,7 @@ export default function Home() {
               <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                 Every situation is different. Reach out and I'll give you an honest, personalized assessment of what the current market means for your specific goals.
               </p>
-              <a href="#contact" style={{ color: '#b8956a' }} className="text-sm font-semibold hover:opacity-80 transition">
+              <a href="#contact" style={{ color: '#c9a96e' }} className="text-sm font-semibold hover:opacity-80 transition">
                 Schedule a Consultation →
               </a>
             </div>
@@ -329,7 +329,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={contactLoading}
-              style={{ backgroundColor: '#b8956a' }}
+              style={{ backgroundColor: '#c9a96e' }}
               className="w-full hover:opacity-80 text-slate-950 font-semibold py-3 rounded transition disabled:opacity-50"
             >
               {contactLoading ? 'Sending...' : 'Send Message'}
