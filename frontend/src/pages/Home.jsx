@@ -178,8 +178,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 flex items-center justify-center">
-            <p className="text-slate-500 text-center font-light">Agent Portrait</p>
+          <div className="rounded-lg overflow-hidden border border-slate-700">
+            <img src="/angela-portrait.jpg" alt="Angela Slawinski" className="w-full h-96 object-cover" />
           </div>
         </div>
       </section>
