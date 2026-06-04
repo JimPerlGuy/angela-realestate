@@ -246,8 +246,8 @@ export default function Home() {
           {testimonials.length > 0 ? (
             <div
               ref={testimonialsRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth"
-              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
+              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
             >
               {testimonials.map(testimonial => (
                 <div
@@ -312,8 +312,8 @@ export default function Home() {
           {marketUpdates.length > 0 ? (
             <div
               ref={marketUpdatesRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth"
-              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
+              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
             >
               {marketUpdates.map(update => (
                 <div
