@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function AdminAgentForm({ agent, token, apiBase, onSuccess, onCancel }) {
   const [loading, setLoading] = useState(false);
+  const [photoLoading, setPhotoLoading] = useState(false);
   const [error, setError] = useState('');
+  const [photoPreview, setPhotoPreview] = useState(agent?.photoUrl || null);
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState(agent || {
     name: '',
     title: '',
@@ -20,6 +23,36 @@ export default function AdminAgentForm({ agent, token, apiBase, onSuccess, onCan
       ...prev,
       [name]: type === 'checkbox' ? checked : (name === 'yearsExperience' || name === 'propertiesSold') ? (value ? parseInt(value) : '') : value
     }));
+  };
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setPhotoLoading(true);
+    setError('');
+
+    try {
+      const formData = new FormData();
+      formData.append('photo', file);
+
+      const res = await fetch(`${apiBase}/api/admin/agents/${agent.id}/photo`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error('Failed to upload photo');
+
+      const data = await res.json();
+      setFormData(prev => ({ ...prev, photoUrl: data.url }));
+      setPhotoPreview(data.url);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setPhotoLoading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -98,15 +131,30 @@ export default function AdminAgentForm({ agent, token, apiBase, onSuccess, onCan
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Photo URL</label>
-        <input
-          type="url"
-          name="photoUrl"
-          value={formData.photoUrl}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="https://example.com/photo.jpg"
-        />
+        <label className="block text-sm font-medium text-gray-700 mb-2">Photo</label>
+        <div className="flex gap-4">
+          <div className="flex-1">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handlePhotoUpload}
+              accept="image/*"
+              disabled={photoLoading}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={photoLoading}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 font-medium"
+            >
+              {photoLoading ? 'Uploading...' : 'Upload Photo'}
+            </button>
+          </div>
+          {photoPreview && (
+            <img src={photoPreview} alt="Preview" className="w-24 h-24 rounded-md object-cover" />
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

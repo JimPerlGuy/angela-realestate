@@ -253,6 +253,21 @@ app.delete('/api/admin/agents/:id', requireAuth, async (req, res) => {
   }
 });
 
+// ── Admin: Agent Photos ────────────────────────────────────────────────────
+app.post('/api/admin/agents/:id/photo', requireAuth, upload.single('photo'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'photo file is required' });
+    const agentId = req.params.id;
+    const { s3Key, url } = await uploadPhoto(agentId, req.file.buffer, req.file.mimetype);
+    const agent = await updateAgent(agentId, { photoUrl: url });
+    if (!agent) return res.status(404).json({ error: 'Not found' });
+    res.json({ url });
+  } catch (err) {
+    console.error('POST /api/admin/agents/:id/photo error:', err.message);
+    res.status(500).json({ error: 'Failed to upload photo' });
+  }
+});
+
 // ── Admin: Testimonials CRUD ───────────────────────────────────────────────
 app.get('/api/admin/testimonials', requireAuth, async (req, res) => {
   try {
