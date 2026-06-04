@@ -82,7 +82,7 @@ export default function Home() {
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed'
       }}>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 to-slate-950/80 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 to-slate-950/70 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -130,8 +130,8 @@ export default function Home() {
 
             {/* Right - Illustration */}
             <div className="hidden lg:flex items-center justify-center">
-              <div className="border border-slate-600 rounded-lg p-4" style={{ backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
-                <img src="/hero-illustration.png" alt="Premium real estate services" className="w-full max-w-sm" style={{ display: 'block' }} />
+              <div className="border border-slate-600 rounded-lg p-3" style={{ backgroundColor: 'rgba(20, 30, 50, 0.5)' }}>
+                <img src="/hero-illustration.png" alt="Premium real estate services" className="w-full max-w-xs" style={{ display: 'block' }} />
               </div>
             </div>
           </div>
