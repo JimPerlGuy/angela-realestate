@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const serverless = require('serverless-http');
-const { testConnection, getListings, getListingById, createListing, updateListing, deleteListing, createLead, addPhoto, deletePhoto: dbDeletePhoto, setPrimaryPhoto } = require('./db');
+const { testConnection, getListings, getListingById, createListing, updateListing, deleteListing, createLead, addPhoto, deletePhoto: dbDeletePhoto, setPrimaryPhoto, getTestimonials, createTestimonial, updateTestimonial, deleteTestimonial, getMarketUpdates, createMarketUpdate, updateMarketUpdate, deleteMarketUpdate } = require('./db');
 const { requireAuth, generateToken, comparePassword } = require('./auth');
 const { uploadPhoto, deletePhoto: s3DeletePhoto } = require('./s3');
 
@@ -56,6 +56,28 @@ app.post('/api/leads', async (req, res) => {
   } catch (err) {
     console.error('POST /api/leads error:', err.message);
     res.status(500).json({ error: 'Failed to submit lead' });
+  }
+});
+
+// ── Public: Testimonials ───────────────────────────────────────────────────
+app.get('/api/testimonials', async (req, res) => {
+  try {
+    const testimonials = await getTestimonials();
+    res.json(testimonials);
+  } catch (err) {
+    console.error('GET /api/testimonials error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch testimonials' });
+  }
+});
+
+// ── Public: Market Updates ────────────────────────────────────────────────
+app.get('/api/market-updates', async (req, res) => {
+  try {
+    const updates = await getMarketUpdates();
+    res.json(updates);
+  } catch (err) {
+    console.error('GET /api/market-updates error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch market updates' });
   }
 });
 
@@ -161,6 +183,98 @@ app.delete('/api/admin/listings/:id/photos/:photoId', requireAuth, async (req, r
   } catch (err) {
     console.error('DELETE /api/admin/listings/:id/photos/:photoId error:', err.message);
     res.status(500).json({ error: 'Failed to delete photo' });
+  }
+});
+
+// ── Admin: Testimonials CRUD ───────────────────────────────────────────────
+app.get('/api/admin/testimonials', requireAuth, async (req, res) => {
+  try {
+    const testimonials = await getTestimonials();
+    res.json(testimonials);
+  } catch (err) {
+    console.error('GET /api/admin/testimonials error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch testimonials' });
+  }
+});
+
+app.post('/api/admin/testimonials', requireAuth, async (req, res) => {
+  try {
+    const { rating, text, name, contactType } = req.body;
+    if (!rating || !text || !name) return res.status(400).json({ error: 'rating, text, and name are required' });
+    const testimonial = await createTestimonial({ rating, text, name, contactType });
+    res.status(201).json(testimonial);
+  } catch (err) {
+    console.error('POST /api/admin/testimonials error:', err.message);
+    res.status(500).json({ error: 'Failed to create testimonial' });
+  }
+});
+
+app.patch('/api/admin/testimonials/:id', requireAuth, async (req, res) => {
+  try {
+    const { rating, text, name, contactType } = req.body;
+    const testimonial = await updateTestimonial(req.params.id, { rating, text, name, contactType });
+    if (!testimonial) return res.status(404).json({ error: 'Not found' });
+    res.json(testimonial);
+  } catch (err) {
+    console.error('PATCH /api/admin/testimonials/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to update testimonial' });
+  }
+});
+
+app.delete('/api/admin/testimonials/:id', requireAuth, async (req, res) => {
+  try {
+    const deleted = await deleteTestimonial(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'Not found' });
+    res.json({ deleted: true });
+  } catch (err) {
+    console.error('DELETE /api/admin/testimonials/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to delete testimonial' });
+  }
+});
+
+// ── Admin: Market Updates CRUD ────────────────────────────────────────────────
+app.get('/api/admin/market-updates', requireAuth, async (req, res) => {
+  try {
+    const updates = await getMarketUpdates();
+    res.json(updates);
+  } catch (err) {
+    console.error('GET /api/admin/market-updates error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch market updates' });
+  }
+});
+
+app.post('/api/admin/market-updates', requireAuth, async (req, res) => {
+  try {
+    const { sourceName, date, title, previewText, sourceUrl } = req.body;
+    if (!sourceName || !date || !title) return res.status(400).json({ error: 'sourceName, date, and title are required' });
+    const update = await createMarketUpdate({ sourceName, date, title, previewText, sourceUrl });
+    res.status(201).json(update);
+  } catch (err) {
+    console.error('POST /api/admin/market-updates error:', err.message);
+    res.status(500).json({ error: 'Failed to create market update' });
+  }
+});
+
+app.patch('/api/admin/market-updates/:id', requireAuth, async (req, res) => {
+  try {
+    const { sourceName, date, title, previewText, sourceUrl } = req.body;
+    const update = await updateMarketUpdate(req.params.id, { sourceName, date, title, previewText, sourceUrl });
+    if (!update) return res.status(404).json({ error: 'Not found' });
+    res.json(update);
+  } catch (err) {
+    console.error('PATCH /api/admin/market-updates/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to update market update' });
+  }
+});
+
+app.delete('/api/admin/market-updates/:id', requireAuth, async (req, res) => {
+  try {
+    const deleted = await deleteMarketUpdate(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'Not found' });
+    res.json({ deleted: true });
+  } catch (err) {
+    console.error('DELETE /api/admin/market-updates/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to delete market update' });
   }
 });
 

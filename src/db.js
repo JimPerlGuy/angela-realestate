@@ -120,6 +120,64 @@ async function getLeads({ listingId } = {}) {
   return rows;
 }
 
+// ── Testimonials ────────────────────────────────────────────────────────────
+
+async function getTestimonials() {
+  const { rows } = await pool.query(`SELECT * FROM testimonials ORDER BY "createdAt" DESC`);
+  return rows;
+}
+
+async function createTestimonial({ rating, text, name, contactType }) {
+  const { rows } = await pool.query(
+    `INSERT INTO testimonials (rating, text, name, "contactType")
+     VALUES ($1, $2, $3, $4) RETURNING *`,
+    [rating, text, name, contactType]
+  );
+  return rows[0];
+}
+
+async function updateTestimonial(id, { rating, text, name, contactType }) {
+  const { rows } = await pool.query(
+    `UPDATE testimonials SET rating = $2, text = $3, name = $4, "contactType" = $5 WHERE id = $1 RETURNING *`,
+    [id, rating, text, name, contactType]
+  );
+  return rows[0] || null;
+}
+
+async function deleteTestimonial(id) {
+  const { rowCount } = await pool.query(`DELETE FROM testimonials WHERE id = $1`, [id]);
+  return rowCount > 0;
+}
+
+// ── Market Updates ───────────────────────────────────────────────────────────
+
+async function getMarketUpdates() {
+  const { rows } = await pool.query(`SELECT * FROM market_updates ORDER BY "date" DESC`);
+  return rows;
+}
+
+async function createMarketUpdate({ sourceName, date, title, previewText, sourceUrl }) {
+  const { rows } = await pool.query(
+    `INSERT INTO market_updates ("sourceName", "date", title, "previewText", "sourceUrl")
+     VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+    [sourceName, date, title, previewText, sourceUrl]
+  );
+  return rows[0];
+}
+
+async function updateMarketUpdate(id, { sourceName, date, title, previewText, sourceUrl }) {
+  const { rows } = await pool.query(
+    `UPDATE market_updates SET "sourceName" = $2, "date" = $3, title = $4, "previewText" = $5, "sourceUrl" = $6 WHERE id = $1 RETURNING *`,
+    [id, sourceName, date, title, previewText, sourceUrl]
+  );
+  return rows[0] || null;
+}
+
+async function deleteMarketUpdate(id) {
+  const { rowCount } = await pool.query(`DELETE FROM market_updates WHERE id = $1`, [id]);
+  return rowCount > 0;
+}
+
 // ── Health check ─────────────────────────────────────────────────────────────
 
 async function testConnection() {
@@ -140,4 +198,12 @@ module.exports = {
   setPrimaryPhoto,
   createLead,
   getLeads,
+  getTestimonials,
+  createTestimonial,
+  updateTestimonial,
+  deleteTestimonial,
+  getMarketUpdates,
+  createMarketUpdate,
+  updateMarketUpdate,
+  deleteMarketUpdate,
 };
