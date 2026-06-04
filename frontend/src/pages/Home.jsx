@@ -77,45 +77,52 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden">
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
-            <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-light">DFW Metroplex · Greater Houston</p>
+            <div>
+              <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-light">DFW Metroplex · Greater Houston</p>
 
-            <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-slate-50">
-              Your Home.
-              <br />
-              Your Story.
-              <br />
-              <span style={{ color: '#b8956a' }}>Your Realtor.</span>
-            </h2>
+              <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-slate-50">
+                Your Home.
+                <br />
+                Your Story.
+                <br />
+                <span style={{ color: '#b8956a' }}>Your Realtor.</span>
+              </h2>
 
-            <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-2xl font-light">
-              Angela Slawinski brings compassionate, expert guidance to DFW & Houston families — helping you find not just a house, but a home.
-            </p>
+              <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-xl font-light">
+                Angela Slawinski brings compassionate, expert guidance to DFW & Houston families — helping you find not just a house, but a home.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <a href="#listings" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
-                VIEW LISTINGS
-              </a>
-              <a href="#contact" style={{ borderColor: '#b8956a', color: '#b8956a' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
-                GET IN TOUCH
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#listings" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                  VIEW LISTINGS
+                </a>
+                <a href="#contact" style={{ borderColor: '#b8956a', color: '#b8956a' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                  GET IN TOUCH
+                </a>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800">
+                <div>
+                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>15+</p>
+                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>2</p>
+                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>100+</p>
+                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
+                </div>
+              </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800 max-w-2xl">
-              <div>
-                <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>15+</p>
-                <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>2</p>
-                <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>100+</p>
-                <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
-              </div>
+            {/* Right - Illustration */}
+            <div className="hidden lg:flex items-center justify-center">
+              <img src="/hero-illustration.jpg" alt="Premium real estate services" className="w-full max-w-sm" />
             </div>
           </div>
         </div>
