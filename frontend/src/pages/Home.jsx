@@ -217,6 +217,49 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Market Updates Section */}
+      <section className="py-32 px-6 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Stay Informed</p>
+          <h2 className="font-serif text-5xl text-slate-50 mb-20">Market Updates</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
+              <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Fortune · Aug 13, 2025</p>
+              <h3 className="font-serif text-2xl text-slate-50 mb-4">Mortgage Rates Hit Lowest Point of the Year</h3>
+              <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
+                Interest rates have dropped to their lowest level this year — creating a meaningful window for buyers who've been waiting on the sidelines.
+              </p>
+              <a href="#" style={{ color: '#b8956a' }} className="text-sm font-semibold hover:opacity-80 transition">
+                Read Article →
+              </a>
+            </div>
+
+            <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
+              <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">CNBC · Aug 12, 2025</p>
+              <h3 className="font-serif text-2xl text-slate-50 mb-4">Housing Market Video Update</h3>
+              <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
+                CNBC breaks down the latest housing market trends and what falling rates mean for buyers and sellers in markets like DFW and Houston.
+              </p>
+              <a href="#" style={{ color: '#b8956a' }} className="text-sm font-semibold hover:opacity-80 transition">
+                Watch Video →
+              </a>
+            </div>
+
+            <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
+              <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">From Angela</p>
+              <h3 className="font-serif text-2xl text-slate-50 mb-4">Is Now the Right Time to Buy or Sell?</h3>
+              <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
+                Every situation is different. Reach out and I'll give you an honest, personalized assessment of what the current market means for your specific goals.
+              </p>
+              <a href="#contact" style={{ color: '#b8956a' }} className="text-sm font-semibold hover:opacity-80 transition">
+                Schedule a Consultation →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-3xl mx-auto">
