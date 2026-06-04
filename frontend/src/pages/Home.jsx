@@ -74,7 +74,15 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden" style={{ backgroundColor: '#111c33' }}>
+      <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden" style={{
+        backgroundColor: '#111c33',
+        backgroundImage: 'url(/hero-illustration.jpg)',
+        backgroundPosition: 'center',
+        backgroundSize: 'auto 80%',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 to-slate-950/80 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -122,7 +130,9 @@ export default function Home() {
 
             {/* Right - Illustration */}
             <div className="hidden lg:flex items-center justify-center">
-              <img src="/hero-illustration.jpg" alt="Premium real estate services" className="w-full max-w-sm" style={{ mixBlendMode: 'screen' }} />
+              <div className="border border-slate-600 rounded-lg p-4" style={{ backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
+                <img src="/hero-illustration.jpg" alt="Premium real estate services" className="w-full max-w-sm" style={{ mixBlendMode: 'lighten', display: 'block' }} />
+              </div>
             </div>
           </div>
         </div>
