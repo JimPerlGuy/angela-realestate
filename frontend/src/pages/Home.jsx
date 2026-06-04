@@ -11,8 +11,10 @@ export default function Home() {
   const [contactLoading, setContactLoading] = useState(false);
   const [testimonialsIndex, setTestimonialsIndex] = useState(0);
   const [marketUpdatesIndex, setMarketUpdatesIndex] = useState(0);
+  const [listingsIndex, setListingsIndex] = useState(0);
   const testimonialsRef = useRef(null);
   const marketUpdatesRef = useRef(null);
+  const listingsRef = useRef(null);
 
   useEffect(() => {
     (async () => {
@@ -166,10 +168,34 @@ export default function Home() {
       {/* Featured Listings */}
       <section id="listings" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-20">
-            <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Our Selection</p>
-            <h2 className="font-serif text-5xl text-slate-50 mb-6">Featured Properties</h2>
-            <div className="w-12 h-1 bg-gradient-to-r from-amber-500 to-transparent"></div>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Our Selection</p>
+              <h2 className="font-serif text-5xl text-slate-50 mb-6">Featured Properties</h2>
+              <div className="w-12 h-1 bg-gradient-to-r from-amber-500 to-transparent"></div>
+            </div>
+            {listings.length > 1 && (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => scroll(listingsRef, 'left', setListingsIndex, listings.length)}
+                  className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
+                  aria-label="Previous listings"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scroll(listingsRef, 'right', setListingsIndex, listings.length)}
+                  className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
+                  aria-label="Next listings"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
 
           {loading ? (
@@ -181,11 +207,43 @@ export default function Home() {
               <p className="text-slate-400">No listings available yet.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-              {listings.map(listing => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
-            </div>
+            <>
+              <div
+                ref={listingsRef}
+                className="flex gap-12 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
+                style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
+                onScroll={() => handleScroll(listingsRef, setListingsIndex, listings.length)}
+              >
+                {listings.map(listing => (
+                  <div key={listing.id} className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 snap-center">
+                    <ListingCard listing={listing} />
+                  </div>
+                ))}
+              </div>
+              {listings.length > 1 && (
+                <div className="flex justify-center gap-2 mt-6">
+                  {listings.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        if (listingsRef.current) {
+                          const cardWidth = listingsRef.current.offsetWidth / 3 + 48; // 3 cards + gap
+                          listingsRef.current.scrollTo({
+                            left: index * cardWidth,
+                            behavior: 'smooth',
+                          });
+                          setListingsIndex(index);
+                        }
+                      }}
+                      className={`w-2 h-2 rounded-full transition ${
+                        Math.abs(index - listingsIndex) < 0.5 ? 'bg-amber-600' : 'bg-slate-600'
+                      }`}
+                      aria-label={`Go to listing ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
