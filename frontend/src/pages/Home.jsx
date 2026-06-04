@@ -9,6 +9,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [contactLoading, setContactLoading] = useState(false);
+  const [testimonialsIndex, setTestimonialsIndex] = useState(0);
+  const [marketUpdatesIndex, setMarketUpdatesIndex] = useState(0);
   const testimonialsRef = useRef(null);
   const marketUpdatesRef = useRef(null);
 
@@ -70,13 +72,23 @@ export default function Home() {
     }
   };
 
-  const scroll = (ref, direction) => {
+  const handleScroll = (ref, setIndex, itemCount) => {
+    if (ref.current) {
+      const scrollLeft = ref.current.scrollLeft;
+      const cardWidth = ref.current.offsetWidth / 3; // Approximate card width on desktop
+      const newIndex = Math.round(scrollLeft / (cardWidth + 32)); // 32 is gap
+      setIndex(Math.max(0, Math.min(newIndex, itemCount - 1)));
+    }
+  };
+
+  const scroll = (ref, direction, setIndex, itemCount) => {
     if (ref.current) {
       const cardWidth = ref.current.offsetWidth / 3 + 32; // 3 cards + gap
       ref.current.scrollBy({
         left: direction === 'left' ? -cardWidth : cardWidth,
         behavior: 'smooth',
       });
+      setTimeout(() => handleScroll(ref, setIndex, itemCount), 300);
     }
   };
 
@@ -219,10 +231,10 @@ export default function Home() {
               <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Testimonials</p>
               <h2 className="font-serif text-5xl text-slate-50">What Clients Say</h2>
             </div>
-            {testimonials.length > 3 && (
+            {testimonials.length > 1 && (
               <div className="flex gap-3">
                 <button
-                  onClick={() => scroll(testimonialsRef, 'left')}
+                  onClick={() => scroll(testimonialsRef, 'left', setTestimonialsIndex, testimonials.length)}
                   className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
                   aria-label="Previous testimonials"
                 >
@@ -231,7 +243,7 @@ export default function Home() {
                   </svg>
                 </button>
                 <button
-                  onClick={() => scroll(testimonialsRef, 'right')}
+                  onClick={() => scroll(testimonialsRef, 'right', setTestimonialsIndex, testimonials.length)}
                   className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
                   aria-label="Next testimonials"
                 >
@@ -244,31 +256,57 @@ export default function Home() {
           </div>
 
           {testimonials.length > 0 ? (
-            <div
-              ref={testimonialsRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
-              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
-            >
-              {testimonials.map(testimonial => (
-                <div
-                  key={testimonial.id}
-                  className="flex-shrink-0 w-full md:w-1/3 bg-slate-800 border border-slate-700 p-8 rounded-lg snap-center"
-                >
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-amber-700 text-lg">★</span>
-                    ))}
+            <>
+              <div
+                ref={testimonialsRef}
+                className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
+                style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
+                onScroll={() => handleScroll(testimonialsRef, setTestimonialsIndex, testimonials.length)}
+              >
+                {testimonials.map(testimonial => (
+                  <div
+                    key={testimonial.id}
+                    className="flex-shrink-0 w-full md:w-1/3 bg-slate-800 border border-slate-700 p-8 rounded-lg snap-center"
+                  >
+                    <div className="flex gap-1 mb-6">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <span key={i} className="text-amber-700 text-lg">★</span>
+                      ))}
+                    </div>
+                    <p className="text-slate-300 mb-8 leading-relaxed font-light italic">
+                      "{testimonial.text}"
+                    </p>
+                    <p className="font-semibold text-slate-100">{testimonial.name}</p>
+                    {testimonial.contactType && (
+                      <p className="text-sm text-slate-500 mt-1 font-light">{testimonial.contactType}</p>
+                    )}
                   </div>
-                  <p className="text-slate-300 mb-8 leading-relaxed font-light italic">
-                    "{testimonial.text}"
-                  </p>
-                  <p className="font-semibold text-slate-100">{testimonial.name}</p>
-                  {testimonial.contactType && (
-                    <p className="text-sm text-slate-500 mt-1 font-light">{testimonial.contactType}</p>
-                  )}
+                ))}
+              </div>
+              {testimonials.length > 1 && (
+                <div className="flex justify-center gap-2 mt-6">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        if (testimonialsRef.current) {
+                          const cardWidth = testimonialsRef.current.offsetWidth / 3 + 32;
+                          testimonialsRef.current.scrollTo({
+                            left: index * cardWidth,
+                            behavior: 'smooth',
+                          });
+                          setTestimonialsIndex(index);
+                        }
+                      }}
+                      className={`w-2 h-2 rounded-full transition ${
+                        Math.abs(index - testimonialsIndex) < 0.5 ? 'bg-amber-600' : 'bg-slate-600'
+                      }`}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
               <p className="text-slate-400">No testimonials yet.</p>
@@ -285,10 +323,10 @@ export default function Home() {
               <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Stay Informed</p>
               <h2 className="font-serif text-5xl text-slate-50">Market Updates</h2>
             </div>
-            {marketUpdates.length > 3 && (
+            {marketUpdates.length > 1 && (
               <div className="flex gap-3">
                 <button
-                  onClick={() => scroll(marketUpdatesRef, 'left')}
+                  onClick={() => scroll(marketUpdatesRef, 'left', setMarketUpdatesIndex, marketUpdates.length)}
                   className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
                   aria-label="Previous updates"
                 >
@@ -297,7 +335,7 @@ export default function Home() {
                   </svg>
                 </button>
                 <button
-                  onClick={() => scroll(marketUpdatesRef, 'right')}
+                  onClick={() => scroll(marketUpdatesRef, 'right', setMarketUpdatesIndex, marketUpdates.length)}
                   className="p-2 rounded-full border border-slate-600 text-slate-400 hover:text-slate-100 hover:border-slate-400 transition"
                   aria-label="Next updates"
                 >
@@ -310,33 +348,59 @@ export default function Home() {
           </div>
 
           {marketUpdates.length > 0 ? (
-            <div
-              ref={marketUpdatesRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
-              style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
-            >
-              {marketUpdates.map(update => (
-                <div
-                  key={update.id}
-                  className="flex-shrink-0 w-full md:w-1/3 bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition snap-center"
-                >
-                  <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>
-                    {update.sourceName}{update.date ? ` · ${new Date(update.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}` : ''}
-                  </p>
-                  <h3 className="font-serif text-2xl text-slate-50 mb-4">{update.title}</h3>
-                  {update.previewText && (
-                    <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
-                      {update.previewText}
+            <>
+              <div
+                ref={marketUpdatesRef}
+                className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pr-6"
+                style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingRight: '1.5rem' }}
+                onScroll={() => handleScroll(marketUpdatesRef, setMarketUpdatesIndex, marketUpdates.length)}
+              >
+                {marketUpdates.map(update => (
+                  <div
+                    key={update.id}
+                    className="flex-shrink-0 w-full md:w-1/3 bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition snap-center"
+                  >
+                    <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>
+                      {update.sourceName}{update.date ? ` · ${new Date(update.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}` : ''}
                     </p>
-                  )}
-                  {update.sourceUrl && (
-                    <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#c9a96e' }} className="text-sm font-semibold hover:opacity-80 transition">
-                      Read More →
-                    </a>
-                  )}
+                    <h3 className="font-serif text-2xl text-slate-50 mb-4">{update.title}</h3>
+                    {update.previewText && (
+                      <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
+                        {update.previewText}
+                      </p>
+                    )}
+                    {update.sourceUrl && (
+                      <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#c9a96e' }} className="text-sm font-semibold hover:opacity-80 transition">
+                        Read More →
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {marketUpdates.length > 1 && (
+                <div className="flex justify-center gap-2 mt-6">
+                  {marketUpdates.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        if (marketUpdatesRef.current) {
+                          const cardWidth = marketUpdatesRef.current.offsetWidth / 3 + 32;
+                          marketUpdatesRef.current.scrollTo({
+                            left: index * cardWidth,
+                            behavior: 'smooth',
+                          });
+                          setMarketUpdatesIndex(index);
+                        }
+                      }}
+                      className={`w-2 h-2 rounded-full transition ${
+                        Math.abs(index - marketUpdatesIndex) < 0.5 ? 'bg-amber-600' : 'bg-slate-600'
+                      }`}
+                      aria-label={`Go to update ${index + 1}`}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
               <p className="text-slate-400">No market updates available yet.</p>
