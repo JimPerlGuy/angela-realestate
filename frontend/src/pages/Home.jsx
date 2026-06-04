@@ -122,7 +122,7 @@ export default function Home() {
 
             {/* Right - Illustration */}
             <div className="hidden lg:flex items-center justify-center">
-              <img src="/hero-illustration.jpg" alt="Premium real estate services" className="w-full max-w-sm" />
+              <img src="/hero-illustration.jpg" alt="Premium real estate services" className="w-full max-w-sm" style={{ mixBlendMode: 'screen' }} />
             </div>
           </div>
         </div>
