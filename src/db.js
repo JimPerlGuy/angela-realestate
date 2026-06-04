@@ -120,6 +120,43 @@ async function getLeads({ listingId } = {}) {
   return rows;
 }
 
+// ── Agents ──────────────────────────────────────────────────────────────────
+
+async function getAgents() {
+  const { rows } = await pool.query(`SELECT * FROM agents ORDER BY "isPrimary" DESC, "createdAt" ASC`);
+  return rows;
+}
+
+async function getPrimaryAgent() {
+  const { rows } = await pool.query(`SELECT * FROM agents WHERE "isPrimary" = TRUE LIMIT 1`);
+  return rows[0] || null;
+}
+
+async function createAgent({ name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets }) {
+  const { rows } = await pool.query(
+    `INSERT INTO agents (name, title, bio, "photoUrl", "yearsExperience", "propertiesSold", "activeMarkets")
+     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    [name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets]
+  );
+  return rows[0];
+}
+
+async function updateAgent(id, { name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets, isPrimary }) {
+  if (isPrimary) {
+    await pool.query(`UPDATE agents SET "isPrimary" = FALSE WHERE "isPrimary" = TRUE`);
+  }
+  const { rows } = await pool.query(
+    `UPDATE agents SET name = $2, title = $3, bio = $4, "photoUrl" = $5, "yearsExperience" = $6, "propertiesSold" = $7, "activeMarkets" = $8, "isPrimary" = $9 WHERE id = $1 RETURNING *`,
+    [id, name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets, isPrimary || false]
+  );
+  return rows[0] || null;
+}
+
+async function deleteAgent(id) {
+  const { rowCount } = await pool.query(`DELETE FROM agents WHERE id = $1`, [id]);
+  return rowCount > 0;
+}
+
 // ── Testimonials ────────────────────────────────────────────────────────────
 
 async function getTestimonials() {
@@ -198,6 +235,11 @@ module.exports = {
   setPrimaryPhoto,
   createLead,
   getLeads,
+  getAgents,
+  getPrimaryAgent,
+  createAgent,
+  updateAgent,
+  deleteAgent,
   getTestimonials,
   createTestimonial,
   updateTestimonial,

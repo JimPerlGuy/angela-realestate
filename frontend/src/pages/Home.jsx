@@ -4,6 +4,7 @@ import ListingCard from '../components/ListingCard';
 
 export default function Home() {
   const [listings, setListings] = useState([]);
+  const [agent, setAgent] = useState(null);
   const [testimonials, setTestimonials] = useState([]);
   const [marketUpdates, setMarketUpdates] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,8 +20,9 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const [listingsRes, testimonialsRes, updatesRes] = await Promise.all([
+        const [listingsRes, agentRes, testimonialsRes, updatesRes] = await Promise.all([
           fetch(`${API_BASE}/api/listings`),
+          fetch(`${API_BASE}/api/agents/primary`),
           fetch(`${API_BASE}/api/testimonials`),
           fetch(`${API_BASE}/api/market-updates`),
         ]);
@@ -28,6 +30,10 @@ export default function Home() {
         if (listingsRes.ok) {
           const data = await listingsRes.json();
           setListings(data);
+        }
+        if (agentRes.ok) {
+          const data = await agentRes.json();
+          if (data.id) setAgent(data);
         }
         if (testimonialsRes.ok) {
           const data = await testimonialsRes.json();
@@ -249,37 +255,51 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-32 px-6 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>About</p>
-            <h2 className="font-serif text-5xl text-slate-50 mb-8">Meet Angela</h2>
-            <p className="text-slate-300 text-lg mb-6 leading-relaxed font-light">
-              With 15+ years of experience in real estate, Angela Slawinski has established herself as a trusted advisor to hundreds of families across the DFW and Houston markets. Her approach combines market expertise with genuine care for every client.
-            </p>
-            <p className="text-slate-400 text-lg leading-relaxed font-light">
-              Whether you're buying, selling, or investing, Angela's personalized service and deep knowledge of the market ensure the best outcomes for you and your family.
-            </p>
-            <div className="mt-8 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <span className="text-amber-700">•</span>
-                <span className="text-slate-300 font-light">Licensed Texas Real Estate Agent</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-amber-700">•</span>
-                <span className="text-slate-300 font-light">15+ Years Industry Experience</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-amber-700">•</span>
-                <span className="text-slate-300 font-light">100+ Properties Successfully Sold</span>
+      {agent ? (
+        <section id="about" className="py-32 px-6 border-t border-slate-800">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>About</p>
+              <h2 className="font-serif text-5xl text-slate-50 mb-8">Meet {agent.name}</h2>
+              {agent.bio && (
+                <p className="text-slate-300 text-lg mb-6 leading-relaxed font-light">
+                  {agent.bio}
+                </p>
+              )}
+              {agent.title && (
+                <p className="text-slate-400 text-lg leading-relaxed font-light">
+                  {agent.title}
+                </p>
+              )}
+              <div className="mt-8 flex flex-col gap-4">
+                {agent.yearsExperience && (
+                  <div className="flex items-center gap-3">
+                    <span className="text-amber-700">•</span>
+                    <span className="text-slate-300 font-light">{agent.yearsExperience}+ Years Industry Experience</span>
+                  </div>
+                )}
+                {agent.propertiesSold && (
+                  <div className="flex items-center gap-3">
+                    <span className="text-amber-700">•</span>
+                    <span className="text-slate-300 font-light">{agent.propertiesSold}+ Properties Successfully Sold</span>
+                  </div>
+                )}
+                {agent.activeMarkets && (
+                  <div className="flex items-center gap-3">
+                    <span className="text-amber-700">•</span>
+                    <span className="text-slate-300 font-light">Serving {agent.activeMarkets}</span>
+                  </div>
+                )}
               </div>
             </div>
+            {agent.photoUrl && (
+              <div className="rounded-lg overflow-hidden border border-slate-700">
+                <img src={agent.photoUrl} alt={agent.name} className="w-full" />
+              </div>
+            )}
           </div>
-          <div className="rounded-lg overflow-hidden border border-slate-700">
-            <img src="/angela-portrait.jpg" alt="Angela Slawinski" className="w-full" />
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* Testimonials */}
       <section className="py-32 px-6 bg-slate-900 border-t border-slate-800">

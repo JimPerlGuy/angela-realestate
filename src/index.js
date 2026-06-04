@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const serverless = require('serverless-http');
-const { testConnection, getListings, getListingById, createListing, updateListing, deleteListing, createLead, addPhoto, deletePhoto: dbDeletePhoto, setPrimaryPhoto, getTestimonials, createTestimonial, updateTestimonial, deleteTestimonial, getMarketUpdates, createMarketUpdate, updateMarketUpdate, deleteMarketUpdate } = require('./db');
+const { testConnection, getListings, getListingById, createListing, updateListing, deleteListing, createLead, addPhoto, deletePhoto: dbDeletePhoto, setPrimaryPhoto, getAgents, getPrimaryAgent, createAgent, updateAgent, deleteAgent, getTestimonials, createTestimonial, updateTestimonial, deleteTestimonial, getMarketUpdates, createMarketUpdate, updateMarketUpdate, deleteMarketUpdate } = require('./db');
 const { requireAuth, generateToken, comparePassword } = require('./auth');
 const { uploadPhoto, deletePhoto: s3DeletePhoto } = require('./s3');
 
@@ -56,6 +56,27 @@ app.post('/api/leads', async (req, res) => {
   } catch (err) {
     console.error('POST /api/leads error:', err.message);
     res.status(500).json({ error: 'Failed to submit lead' });
+  }
+});
+
+// ── Public: Agents ────────────────────────────────────────────────────────
+app.get('/api/agents', async (req, res) => {
+  try {
+    const agents = await getAgents();
+    res.json(agents);
+  } catch (err) {
+    console.error('GET /api/agents error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch agents' });
+  }
+});
+
+app.get('/api/agents/primary', async (req, res) => {
+  try {
+    const agent = await getPrimaryAgent();
+    res.json(agent || {});
+  } catch (err) {
+    console.error('GET /api/agents/primary error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch primary agent' });
   }
 });
 
@@ -183,6 +204,52 @@ app.delete('/api/admin/listings/:id/photos/:photoId', requireAuth, async (req, r
   } catch (err) {
     console.error('DELETE /api/admin/listings/:id/photos/:photoId error:', err.message);
     res.status(500).json({ error: 'Failed to delete photo' });
+  }
+});
+
+// ── Admin: Agents CRUD ────────────────────────────────────────────────────
+app.get('/api/admin/agents', requireAuth, async (req, res) => {
+  try {
+    const agents = await getAgents();
+    res.json(agents);
+  } catch (err) {
+    console.error('GET /api/admin/agents error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch agents' });
+  }
+});
+
+app.post('/api/admin/agents', requireAuth, async (req, res) => {
+  try {
+    const { name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets } = req.body;
+    if (!name) return res.status(400).json({ error: 'name is required' });
+    const agent = await createAgent({ name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets });
+    res.status(201).json(agent);
+  } catch (err) {
+    console.error('POST /api/admin/agents error:', err.message);
+    res.status(500).json({ error: 'Failed to create agent' });
+  }
+});
+
+app.patch('/api/admin/agents/:id', requireAuth, async (req, res) => {
+  try {
+    const { name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets, isPrimary } = req.body;
+    const agent = await updateAgent(req.params.id, { name, title, bio, photoUrl, yearsExperience, propertiesSold, activeMarkets, isPrimary });
+    if (!agent) return res.status(404).json({ error: 'Not found' });
+    res.json(agent);
+  } catch (err) {
+    console.error('PATCH /api/admin/agents/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to update agent' });
+  }
+});
+
+app.delete('/api/admin/agents/:id', requireAuth, async (req, res) => {
+  try {
+    const deleted = await deleteAgent(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'Not found' });
+    res.json({ deleted: true });
+  } catch (err) {
+    console.error('DELETE /api/admin/agents/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to delete agent' });
   }
 });
 

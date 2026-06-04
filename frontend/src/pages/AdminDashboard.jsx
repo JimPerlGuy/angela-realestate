@@ -5,23 +5,26 @@ import AdminListingForm from '../components/AdminListingForm';
 import AdminPhotoUpload from '../components/AdminPhotoUpload';
 import AdminTestimonialForm from '../components/AdminTestimonialForm';
 import AdminMarketUpdateForm from '../components/AdminMarketUpdateForm';
+import AdminAgentForm from '../components/AdminAgentForm';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const token = getToken();
 
   const [listings, setListings] = useState([]);
+  const [agents, setAgents] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [marketUpdates, setMarketUpdates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState('');
-  const [view, setView] = useState('listings'); // 'listings' | 'listing-form' | 'photos' | 'testimonials' | 'testimonial-form' | 'market-updates' | 'market-update-form'
+  const [view, setView] = useState('listings'); // 'listings' | 'listing-form' | 'photos' | 'agents' | 'agent-form' | 'testimonials' | 'testimonial-form' | 'market-updates' | 'market-update-form'
   const [editListing, setEditListing] = useState(null);
   const [photoListing, setPhotoListing] = useState(null);
+  const [editAgent, setEditAgent] = useState(null);
   const [editTestimonial, setEditTestimonial] = useState(null);
   const [editMarketUpdate, setEditMarketUpdate] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
-  const [deleteType, setDeleteType] = useState(null); // 'listing' | 'testimonial' | 'market-update'
+  const [deleteType, setDeleteType] = useState(null); // 'listing' | 'agent' | 'testimonial' | 'market-update'
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState('');
 
@@ -48,6 +51,17 @@ export default function AdminDashboard() {
     }
   }, []);
 
+  const fetchAgents = useCallback(async () => {
+    try {
+      const res = await authFetch('/api/admin/agents');
+      if (!res.ok) throw new Error(`Failed to load agents (${res.status})`);
+      const data = await res.json();
+      setAgents(data);
+    } catch (err) {
+      setFetchError(err.message);
+    }
+  }, []);
+
   const fetchMarketUpdates = useCallback(async () => {
     try {
       const res = await authFetch('/api/admin/market-updates');
@@ -61,8 +75,8 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([fetchListings(), fetchTestimonials(), fetchMarketUpdates()]).finally(() => setLoading(false));
-  }, [fetchListings, fetchTestimonials, fetchMarketUpdates]);
+    Promise.all([fetchListings(), fetchAgents(), fetchTestimonials(), fetchMarketUpdates()]).finally(() => setLoading(false));
+  }, [fetchListings, fetchAgents, fetchTestimonials, fetchMarketUpdates]);
 
   function handleLogout() {
     clearToken();
@@ -73,6 +87,11 @@ export default function AdminDashboard() {
     setView('listings');
     setEditListing(null);
     setPhotoListing(null);
+  }
+
+  function goToAgents() {
+    setView('agents');
+    setEditAgent(null);
   }
 
   function goToTestimonials() {
@@ -108,6 +127,21 @@ export default function AdminDashboard() {
     } else {
       goToListings();
     }
+  }
+
+  function handleNewAgent() {
+    setEditAgent(null);
+    setView('agent-form');
+  }
+
+  function handleEditAgent(agent) {
+    setEditAgent(agent);
+    setView('agent-form');
+  }
+
+  function handleAgentFormSuccess() {
+    fetchAgents();
+    goToAgents();
   }
 
   function handleNewTestimonial() {
@@ -148,6 +182,8 @@ export default function AdminDashboard() {
       let endpoint;
       if (deleteType === 'listing') {
         endpoint = `/api/admin/listings/${deleteTarget}`;
+      } else if (deleteType === 'agent') {
+        endpoint = `/api/admin/agents/${deleteTarget}`;
       } else if (deleteType === 'testimonial') {
         endpoint = `/api/admin/testimonials/${deleteTarget}`;
       } else if (deleteType === 'market-update') {
@@ -162,6 +198,8 @@ export default function AdminDashboard() {
 
       if (deleteType === 'listing') {
         setListings(prev => prev.filter(l => l.id !== deleteTarget));
+      } else if (deleteType === 'agent') {
+        setAgents(prev => prev.filter(a => a.id !== deleteTarget));
       } else if (deleteType === 'testimonial') {
         setTestimonials(prev => prev.filter(t => t.id !== deleteTarget));
       } else if (deleteType === 'market-update') {
@@ -200,6 +238,7 @@ export default function AdminDashboard() {
               )}
               <h1 className="text-lg font-semibold text-gray-900">
                 {(view === 'listings' || view === 'listing-form' || view === 'photos') && (view === 'listings' ? 'Listings' : view === 'listing-form' ? (editListing ? 'Edit Listing' : 'New Listing') : 'Manage Photos')}
+                {(view === 'agents' || view === 'agent-form') && (view === 'agents' ? 'Agents' : editAgent ? 'Edit Agent' : 'New Agent')}
                 {(view === 'testimonials' || view === 'testimonial-form') && (view === 'testimonials' ? 'Testimonials' : editTestimonial ? 'Edit Testimonial' : 'New Testimonial')}
                 {(view === 'market-updates' || view === 'market-update-form') && (view === 'market-updates' ? 'Market Updates' : editMarketUpdate ? 'Edit Market Update' : 'New Market Update')}
               </h1>
@@ -218,6 +257,12 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {(view === 'agents' || view === 'agent-form') && (
+            <div className="flex gap-6 border-t border-gray-200 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+              <button onClick={goToAgents} className={`py-4 px-1 border-b-2 font-medium text-sm ${view === 'agents' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>Agents</button>
+            </div>
+          )}
+
           {(view === 'testimonials' || view === 'testimonial-form') && (
             <div className="flex gap-6 border-t border-gray-200 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
               <button onClick={goToTestimonials} className={`py-4 px-1 border-b-2 font-medium text-sm ${view === 'testimonials' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>Testimonials</button>
@@ -233,6 +278,7 @@ export default function AdminDashboard() {
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 border-t border-gray-200 flex gap-2">
           <button onClick={goToListings} className={`px-4 py-2 rounded-md text-sm font-medium ${view.includes('listing') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100'}`}>Listings</button>
+          <button onClick={goToAgents} className={`px-4 py-2 rounded-md text-sm font-medium ${view.includes('agent') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100'}`}>Agents</button>
           <button onClick={goToTestimonials} className={`px-4 py-2 rounded-md text-sm font-medium ${view.includes('testimonial') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100'}`}>Testimonials</button>
           <button onClick={goToMarketUpdates} className={`px-4 py-2 rounded-md text-sm font-medium ${view.includes('market-update') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100'}`}>Market Updates</button>
         </div>
@@ -288,6 +334,39 @@ export default function AdminDashboard() {
                     Done
                   </button>
                 </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {(view === 'agents' || view === 'agent-form') && (
+          <>
+            {view === 'agents' && (
+              <AgentsView
+                agents={agents}
+                loading={loading}
+                fetchError={fetchError}
+                deleteTarget={deleteTarget}
+                deleting={deleting}
+                deleteError={deleteError}
+                onNew={handleNewAgent}
+                onEdit={handleEditAgent}
+                onDelete={(id) => { setDeleteTarget(id); setDeleteType('agent'); setDeleteError(''); }}
+                onCancelDelete={() => { setDeleteTarget(null); setDeleteType(null); setDeleteError(''); }}
+                onConfirmDelete={handleDelete}
+                onRefresh={fetchAgents}
+              />
+            )}
+
+            {view === 'agent-form' && (
+              <div className="mx-auto max-w-2xl bg-white rounded-lg shadow-sm p-6">
+                <AdminAgentForm
+                  agent={editAgent}
+                  token={token}
+                  apiBase={API_BASE}
+                  onSuccess={handleAgentFormSuccess}
+                  onCancel={goToAgents}
+                />
               </div>
             )}
           </>
@@ -590,6 +669,119 @@ function TestimonialsView({ testimonials, loading, fetchError, deleteTarget, del
       {testimonials.length === 0 && !deleteError && (
         <div className="text-center py-20">
           <p className="text-gray-400 text-sm">No testimonials yet — click <strong>+ New Testimonial</strong> to add one.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AgentsView({ agents, loading, fetchError, deleteTarget, deleting, deleteError, onNew, onEdit, onDelete, onCancelDelete, onConfirmDelete, onRefresh }) {
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <svg className="h-6 w-6 animate-spin text-indigo-600" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        </svg>
+        <span className="ml-3 text-sm text-gray-600">Loading agents…</span>
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-200 flex items-center justify-between">
+        <span>{fetchError}</span>
+        <button onClick={onRefresh} className="ml-4 font-medium underline hover:text-red-900">Retry</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={onNew}
+          className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+        >
+          + New Agent
+        </button>
+      </div>
+
+      {deleteError && (
+        <div className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-200">
+          {deleteError}
+        </div>
+      )}
+
+      <div className="space-y-4">
+        {agents.map(agent =>
+          deleteTarget === agent.id ? (
+            <div key={agent.id} className="bg-red-50 border border-red-200 p-6 rounded-lg flex items-center justify-between">
+              <p className="text-sm text-red-700 font-medium">Delete {agent.name}?</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={onCancelDelete}
+                  disabled={deleting}
+                  className="rounded-md px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onConfirmDelete}
+                  disabled={deleting}
+                  className="rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-500 disabled:opacity-50"
+                >
+                  {deleting ? 'Deleting…' : 'Delete'}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div key={agent.id} className="bg-white border border-gray-200 p-6 rounded-lg hover:shadow-md transition flex gap-6">
+              {agent.photoUrl && (
+                <div className="w-24 h-24 flex-shrink-0">
+                  <img src={agent.photoUrl} alt={agent.name} className="w-full h-full object-cover rounded" />
+                </div>
+              )}
+              <div className="flex-1">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-semibold text-gray-900">{agent.name}</p>
+                    {agent.title && <p className="text-sm text-gray-600">{agent.title}</p>}
+                  </div>
+                  {agent.isPrimary && (
+                    <span className="px-2 py-1 bg-amber-100 text-amber-800 text-xs font-medium rounded">Primary</span>
+                  )}
+                </div>
+                {agent.bio && <p className="text-sm text-gray-600 mt-2 line-clamp-2">{agent.bio}</p>}
+                <div className="flex gap-4 mt-3 text-sm text-gray-600">
+                  {agent.yearsExperience && <span>{agent.yearsExperience}+ years</span>}
+                  {agent.propertiesSold && <span>{agent.propertiesSold} sold</span>}
+                  {agent.activeMarkets && <span>{agent.activeMarkets}</span>}
+                </div>
+              </div>
+              <div className="flex gap-2 justify-end">
+                <button
+                  onClick={() => onEdit(agent)}
+                  className="rounded px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => onDelete(agent.id)}
+                  className="rounded px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          )
+        )}
+      </div>
+
+      {agents.length === 0 && !deleteError && (
+        <div className="text-center py-20">
+          <p className="text-gray-400 text-sm">No agents yet — click <strong>+ New Agent</strong> to add one.</p>
         </div>
       )}
     </div>
