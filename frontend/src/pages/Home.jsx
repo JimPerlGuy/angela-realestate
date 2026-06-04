@@ -80,7 +80,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div>
-              <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-light">DFW Metroplex · Greater Houston</p>
+              <p className="text-xs tracking-widest uppercase mb-8 font-light" style={{ color: '#c9a96e' }}>DFW Metroplex · Greater Houston</p>
 
               <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-slate-50">
                 Your Home.
@@ -132,7 +132,7 @@ export default function Home() {
       <section id="listings" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
-            <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Our Selection</p>
+            <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Our Selection</p>
             <h2 className="font-serif text-5xl text-slate-50 mb-6">Featured Properties</h2>
             <div className="w-12 h-1 bg-gradient-to-r from-amber-500 to-transparent"></div>
           </div>
@@ -159,7 +159,7 @@ export default function Home() {
       <section id="about" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">About</p>
+            <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>About</p>
             <h2 className="font-serif text-5xl text-slate-50 mb-8">Meet Angela</h2>
             <p className="text-slate-300 text-lg mb-6 leading-relaxed font-light">
               With 15+ years of experience in real estate, Angela Slawinski has established herself as a trusted advisor to hundreds of families across the DFW and Houston markets. Her approach combines market expertise with genuine care for every client.
@@ -191,7 +191,7 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-32 px-6 bg-slate-900 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Testimonials</p>
+          <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Testimonials</p>
           <h2 className="font-serif text-5xl text-slate-50 mb-20">What Clients Say</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -227,12 +227,12 @@ export default function Home() {
       {/* Market Updates Section */}
       <section className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Stay Informed</p>
+          <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Stay Informed</p>
           <h2 className="font-serif text-5xl text-slate-50 mb-20">Market Updates</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
-              <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Fortune · Aug 13, 2025</p>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Fortune · Aug 13, 2025</p>
               <h3 className="font-serif text-2xl text-slate-50 mb-4">Mortgage Rates Hit Lowest Point of the Year</h3>
               <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                 Interest rates have dropped to their lowest level this year — creating a meaningful window for buyers who've been waiting on the sidelines.
@@ -243,7 +243,7 @@ export default function Home() {
             </div>
 
             <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
-              <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">CNBC · Aug 12, 2025</p>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>CNBC · Aug 12, 2025</p>
               <h3 className="font-serif text-2xl text-slate-50 mb-4">Housing Market Video Update</h3>
               <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                 CNBC breaks down the latest housing market trends and what falling rates mean for buyers and sellers in markets like DFW and Houston.
@@ -254,7 +254,7 @@ export default function Home() {
             </div>
 
             <div className="bg-slate-800 border border-slate-700 p-8 rounded-lg hover:border-amber-600 transition">
-              <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">From Angela</p>
+              <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>From Angela</p>
               <h3 className="font-serif text-2xl text-slate-50 mb-4">Is Now the Right Time to Buy or Sell?</h3>
               <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                 Every situation is different. Reach out and I'll give you an honest, personalized assessment of what the current market means for your specific goals.
@@ -270,7 +270,7 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-32 px-6 border-t border-slate-800">
         <div className="max-w-3xl mx-auto">
-          <p className="text-amber-700 text-xs tracking-widest uppercase font-light mb-4">Let's Connect</p>
+          <p className="text-xs tracking-widest uppercase font-light mb-4" style={{ color: '#c9a96e' }}>Let's Connect</p>
           <h2 className="font-serif text-5xl text-slate-50 mb-6">Get in Touch</h2>
           <p className="text-slate-400 text-lg mb-12 font-light">
             Have questions about a property or ready to start your real estate journey? Reach out to Angela today. She's available to discuss your needs and answer any questions you may have.
