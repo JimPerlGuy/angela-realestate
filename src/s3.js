@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const BUCKET = process.env.S3_BUCKET || 'angela-realestate-photos';
 const REGION = process.env.AWS_REGION || 'us-east-1';
-const CDN_BASE = process.env.CDN_BASE || 'https://d26rn8nggmgvkj.cloudfront.net';
+const CDN_BASE = process.env.CDN_BASE || `https://${BUCKET}.s3.${REGION}.amazonaws.com`;
 
 const s3 = new AWS.S3({ region: REGION });
 
