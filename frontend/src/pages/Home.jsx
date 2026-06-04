@@ -77,127 +77,45 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden">
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
             {/* Left Content */}
-            <div>
-              <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-light">DFW Metroplex · Greater Houston</p>
+            <p className="text-amber-700 text-xs tracking-widest uppercase mb-8 font-light">DFW Metroplex · Greater Houston</p>
 
-              <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-slate-50">
-                Your Home.
-                <br />
-                Your Story.
-                <br />
-                <span style={{ color: '#b8956a' }}>Your Realtor.</span>
-              </h2>
+            <h2 className="font-serif text-6xl lg:text-7xl leading-tight mb-8 text-slate-50">
+              Your Home.
+              <br />
+              Your Story.
+              <br />
+              <span style={{ color: '#b8956a' }}>Your Realtor.</span>
+            </h2>
 
-              <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-xl font-light">
-                Angela Slawinski brings compassionate, expert guidance to DFW & Houston families — helping you find not just a house, but a home.
-              </p>
+            <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-2xl font-light">
+              Angela Slawinski brings compassionate, expert guidance to DFW & Houston families — helping you find not just a house, but a home.
+            </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="#listings" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
-                  VIEW LISTINGS
-                </a>
-                <a href="#contact" style={{ borderColor: '#b8956a', color: '#b8956a' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
-                  GET IN TOUCH
-                </a>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800">
-                <div>
-                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>15+</p>
-                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>2</p>
-                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>100+</p>
-                  <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <a href="#listings" style={{ backgroundColor: '#b8956a' }} className="hover:opacity-80 text-slate-950 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                VIEW LISTINGS
+              </a>
+              <a href="#contact" style={{ borderColor: '#b8956a', color: '#b8956a' }} className="border hover:opacity-80 px-8 py-3 rounded font-semibold transition inline-block text-center">
+                GET IN TOUCH
+              </a>
             </div>
 
-            {/* Right - Refined Gem-like Layers with Soft Facets */}
-            <div className="hidden lg:flex items-center justify-center">
-              <svg className="w-full max-w-sm" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  {/* Radial gradients for gem-like light play */}
-                  <radialGradient id="layer1" cx="50%" cy="30%">
-                    <stop offset="0%" stopColor="#d9cec3" stopOpacity="0.4" />
-                    <stop offset="50%" stopColor="#8a95a5" stopOpacity="0.88" />
-                    <stop offset="100%" stopColor="#6a7b8d" stopOpacity="0.82" />
-                  </radialGradient>
-                  <radialGradient id="layer2" cx="50%" cy="35%">
-                    <stop offset="0%" stopColor="#d4c5b9" stopOpacity="0.35" />
-                    <stop offset="50%" stopColor="#9aa5b3" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="#6a7b8d" stopOpacity="0.82" />
-                  </radialGradient>
-                  <linearGradient id="purpleGradient" x1="20%" y1="20%" x2="80%" y2="80%">
-                    <stop offset="0%" stopColor="#f0d9f5" stopOpacity="0.5" />
-                    <stop offset="35%" stopColor="#e5a8f4" stopOpacity="0.75" />
-                    <stop offset="65%" stopColor="#d946ef" stopOpacity="0.88" />
-                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.72" />
-                  </linearGradient>
-                  <filter id="softGlow">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" />
-                  </filter>
-                  <filter id="gemLuminosity">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" />
-                  </filter>
-                </defs>
-
-                {/* Top layer - faceted gem form with soft rounded edges */}
-                <path d="M 140 100 L 260 100 Q 285 105 295 125 Q 290 145 200 155 Q 110 145 105 125 Q 115 105 140 100 Z"
-                      fill="url(#layer1)" stroke="#b8956a" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
-
-                {/* Subtle facet edge on top - suggests cutting */}
-                <path d="M 140 100 L 200 88 L 260 100"
-                      fill="none" stroke="#c9b5a0" strokeWidth="0.6" opacity="0.6" strokeLinecap="round" />
-
-                {/* Luminous highlight on top surface */}
-                <ellipse cx="200" cy="108" rx="55" ry="12" fill="#f0e5db" opacity="0.4" filter="url(#gemLuminosity)" />
-
-                {/* Middle layer - geometric base with soft edges */}
-                <path d="M 85 175 L 315 175 Q 340 185 345 220 Q 342 260 320 275 Q 260 295 200 298 Q 140 295 80 275 Q 58 260 55 220 Q 60 185 85 175 Z"
-                      fill="url(#layer2)" stroke="#b8956a" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
-
-                {/* Facet edges suggesting structured cutting */}
-                <path d="M 85 175 L 200 155 L 315 175"
-                      fill="none" stroke="#c9b5a0" strokeWidth="0.6" opacity="0.5" strokeLinecap="round" />
-                <path d="M 80 275 L 200 298 L 320 275"
-                      fill="none" stroke="#8a95a5" strokeWidth="0.6" opacity="0.4" strokeLinecap="round" />
-
-                {/* Luminous highlight on middle */}
-                <ellipse cx="200" cy="205" rx="95" ry="22" fill="#d9cec3" opacity="0.35" filter="url(#gemLuminosity)" />
-
-                {/* Bottom layer - structured gem form with presence */}
-                <g filter="url(#softGlow)">
-                  <path d="M 45 300 L 355 300 Q 385 315 388 360 Q 385 405 350 435 Q 275 475 200 483 Q 125 475 50 435 Q 15 405 12 360 Q 15 315 45 300 Z"
-                        fill="url(#purpleGradient)" stroke="#d9a4ec" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                </g>
-
-                {/* Facet edges on bottom layer - defines precious form */}
-                <path d="M 45 300 L 200 270 L 355 300"
-                      fill="none" stroke="#e879f9" strokeWidth="0.7" opacity="0.35" filter="url(#softGlow)" strokeLinecap="round" />
-                <path d="M 50 435 L 200 483 L 350 435"
-                      fill="none" stroke="#c084fc" strokeWidth="0.7" opacity="0.3" filter="url(#softGlow)" strokeLinecap="round" />
-
-                {/* Luminous highlight on bottom gem */}
-                <ellipse cx="200" cy="330" rx="120" ry="32" fill="#f5e6f9" opacity="0.32" filter="url(#gemLuminosity)" />
-
-                {/* Structural depth lines - show intentional cutting */}
-                <line x1="105" y1="125" x2="80" y2="175" stroke="#b8956a" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
-                <line x1="295" y1="125" x2="320" y2="175" stroke="#b8956a" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
-
-                <line x1="80" y1="275" x2="50" y2="300" stroke="#d9a4ec" strokeWidth="0.9" opacity="0.45" filter="url(#softGlow)" strokeLinecap="round" />
-                <line x1="320" y1="275" x2="350" y2="300" stroke="#d9a4ec" strokeWidth="0.9" opacity="0.45" filter="url(#softGlow)" strokeLinecap="round" />
-
-                {/* Center axis for definition */}
-                <line x1="200" y1="155" x2="200" y2="483" stroke="#c084fc" strokeWidth="0.7" opacity="0.35" filter="url(#softGlow)" strokeLinecap="round" />
-              </svg>
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-800 max-w-2xl">
+              <div>
+                <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>15+</p>
+                <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">YEARS EXPERIENCE</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>2</p>
+                <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">ACTIVE MARKETS</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold" style={{ color: '#b8956a' }}>100+</p>
+                <p className="text-xs tracking-widest text-slate-400 mt-3 font-light">HOMES SOLD</p>
+              </div>
             </div>
           </div>
         </div>
