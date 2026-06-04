@@ -74,15 +74,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden" style={{
-        backgroundColor: '#111c33',
-        backgroundImage: 'url(/hero-illustration.png)',
-        backgroundPosition: 'center',
-        backgroundSize: 'auto 80%',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 to-slate-950/70 pointer-events-none"></div>
+      <section className="relative min-h-screen flex items-center px-6 py-20 overflow-hidden" style={{ backgroundColor: '#111c33' }}>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
