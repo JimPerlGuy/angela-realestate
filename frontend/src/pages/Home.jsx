@@ -128,12 +128,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right - Illustration */}
-            <div className="hidden lg:flex items-center justify-center">
-              <div className="border border-slate-600 rounded-lg p-3" style={{ backgroundColor: 'rgba(20, 30, 50, 0.5)' }}>
-                <img src="/hero-illustration.png" alt="Premium real estate services" className="w-full max-w-xs" style={{ display: 'block' }} />
-              </div>
-            </div>
           </div>
         </div>
       </section>
