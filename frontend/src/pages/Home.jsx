@@ -179,7 +179,7 @@ export default function Home() {
             </div>
           </div>
           <div className="rounded-lg overflow-hidden border border-slate-700">
-            <img src="/angela-portrait.jpg" alt="Angela Slawinski" className="w-full h-96 object-cover" />
+            <img src="/angela-portrait.jpg" alt="Angela Slawinski" className="w-full" />
           </div>
         </div>
       </section>
